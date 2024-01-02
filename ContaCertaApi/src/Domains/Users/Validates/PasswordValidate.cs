@@ -7,7 +7,7 @@ namespace ContaCertaApi.src.Domains.Users.Validates
         private List<string> _messages = new List<string>();
         public IReadOnlyList<string> Messages => _messages.AsReadOnly();
 
-        private int MinLength { get => 8; }
+        public int MinLength { get => 8; }
         public virtual bool Execute(string password)
         {
             _messages.Clear();
@@ -21,6 +21,11 @@ namespace ContaCertaApi.src.Domains.Users.Validates
             if (password.Length < MinLength)
             {
                 _messages.Add("A senha deve ter mais de "+MinLength+" caracteres.");
+            }
+
+            if (!password.Any(char.IsLower))
+            {
+                _messages.Add("A senha deve ter pelo menos uma letra minúscula.");
             }
 
             if (!password.Any(char.IsUpper))
