@@ -22,6 +22,11 @@ namespace ContaCertaApi.Domains.Users.Services
                 throw new ArgumentException("Senha inválida: \n - "+string.Join("\n - ", _passwordValidate.Messages));
             }
 
+            if (_userRepository.FindByEmail(email) != null)
+            {
+                throw new ArgumentException("Email já cadastrado");
+            }
+
             try {
                 var user = new User(email,  password, true);
                 return _userRepository.Save(user);

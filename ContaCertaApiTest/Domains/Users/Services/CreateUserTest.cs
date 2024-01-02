@@ -26,6 +26,24 @@ public class CreateUserTest
     }
 
     [Fact]
+    public void CreateUser_UserExisting_ReturnsArgumentException()
+    {
+        string emailSended = "email@gmail.com.br";
+        string passwordSended = "any_password";
+        Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>();
+        userRepositoryMock.Setup(x => x.FindByEmail(It.IsAny<string>())).Returns(new User(emailSended, passwordSended, true));
+        
+        var passwordValidateMock = new Mock<PasswordValidate>();
+        passwordValidateMock.Setup(x => x.Execute(It.IsAny<string>())).Returns((string password) => true );
+
+        var CreateUser = new CreateUser(userRepositoryMock.Object, passwordValidateMock.Object);
+        Action Act = () => CreateUser.Execute(emailSended, passwordSended);
+
+        var exception = Assert.Throws<ArgumentException>(Act);
+        Assert.Contains("Email já cadastrado", exception.Message);
+    }
+
+    [Fact]
     public void CreateUser_InvalidPasswordUser_ReturnsArgumentException()
     {
         string emailSended = "email@gmail.com.br";
