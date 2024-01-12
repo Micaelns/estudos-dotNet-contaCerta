@@ -1,8 +1,8 @@
-using ContaCertaApi.Domains.Users.Model;
-using ContaCertaApi.Domains.Users.Repositories;
-using ContaCertaApi.src.Domains.Users.Validates;
+using ContaCerta.Domains.Users.Model;
+using ContaCerta.Domains.Users.Repositories;
+using ContaCerta.Domains.Users.Validates;
 
-namespace ContaCertaApi.Domains.Users.Services
+namespace ContaCerta.Domains.Users.Services
 {
     public class CreateUser
     {
@@ -21,7 +21,7 @@ namespace ContaCertaApi.Domains.Users.Services
         {
             if (!_emailValidate.Execute(email))
             {
-                throw new ArgumentException("Email inválido");
+                throw new ArgumentException("E-mail inválido");
             }
 
             if (!_passwordValidate.Execute(password))

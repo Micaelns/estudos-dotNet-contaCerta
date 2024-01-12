@@ -1,4 +1,4 @@
-namespace ContaCertaApi.Domains.Users.Model
+namespace ContaCerta.Domains.Users.Model
 {
     public class User
     {

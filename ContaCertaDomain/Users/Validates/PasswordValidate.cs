@@ -1,6 +1,6 @@
-using ContaCertaApi.Domains.Interfaces;
+using ContaCerta.Domain.Common.Interfaces;
 
-namespace ContaCertaApi.src.Domains.Users.Validates
+namespace ContaCerta.Domains.Users.Validates
 {
     public class PasswordValidate: IValidate
     {

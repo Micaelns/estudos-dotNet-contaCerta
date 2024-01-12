@@ -1,14 +1,14 @@
-using ContaCertaApi.src.Domains.Users.Validates;
-using ContaCertaApi.Domains.Users.Model;
-using ContaCertaApi.Domains.Users.Repositories;
+using ContaCerta.Domains.Users.Validates;
+using ContaCerta.Domains.Users.Model;
+using ContaCerta.Domains.Users.Repositories;
 using Moq;
 
-namespace ContaCertaApi.Domains.Users.Services;
+namespace ContaCerta.Domains.Users.Services;
 
 public class CreateUserTest
 {
     [Fact]
-    public void CreateUser_ValidUser_ReturnsUserSuccessfully()
+    public void Execute_ValidUser_ReturnsUserSuccessfully()
     {
         string emailSended = "email@gmail.com.br";
         string passwordSended = "any_password";
@@ -26,7 +26,7 @@ public class CreateUserTest
     }
 
     [Fact]
-    public void CreateUser_UserExisting_ReturnsArgumentException()
+    public void Execute_UserExisting_ReturnsArgumentException()
     {
         string emailSended = "email@gmail.com.br";
         string passwordSended = "any_password";
@@ -44,7 +44,7 @@ public class CreateUserTest
     }
 
     [Fact]
-    public void CreateUser_InvalidEmailUser_ReturnsArgumentException()
+    public void Execute_InvalidEmailUser_ReturnsArgumentException()
     {
         string emailSended = "emailInvalid.com.br";
         string passwordSended = "";
@@ -56,11 +56,11 @@ public class CreateUserTest
         Action Act = () => CreateUser.Execute(emailSended, passwordSended);
 
         var exception = Assert.Throws<ArgumentException>(Act);
-        Assert.Contains("Email inválido", exception.Message);
+        Assert.Contains("E-mail inválido", exception.Message);
     }
 
     [Fact]
-    public void CreateUser_InvalidPasswordUser_ReturnsArgumentException()
+    public void Execute_InvalidPasswordUser_ReturnsArgumentException()
     {
         string emailSended = "email@gmail.com.br";
         string passwordSended = "";
@@ -76,7 +76,7 @@ public class CreateUserTest
     }
 
     [Fact]
-    public void CreateUser_InvalidUserRepository_ReturnsException()
+    public void Execute_InvalidUserRepository_ReturnsException()
     {
         Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>();
         userRepositoryMock.Setup(x => x.Save(It.IsAny<User>())).Throws(new Exception("Simulando um erro no UserRepository"));

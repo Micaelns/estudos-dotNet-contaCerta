@@ -1,10 +1,10 @@
 
-namespace ContaCertaApi.src.Domains.Users.Validates
+namespace ContaCerta.Domains.Users.Validates
 {
     public class PasswordValidateTest
     {
         [Fact]
-        public void PasswordValidate_ValidPassword_ReturnTrue()
+        public void Execute_ValidPassword_ReturnTrue()
         {
             string passwordSended = "abc123ABC";
             var passwordValidate = new PasswordValidate();
@@ -23,7 +23,7 @@ namespace ContaCertaApi.src.Domains.Users.Validates
         [InlineData("asdABCdefgh",1)]
         [InlineData("ABCDEFGHI",2)]
         [InlineData("ABC123456789",1)]
-        public void PasswordValidate_InvalidPassword_ReturnFalseAndQtdErrorsCorrect(string invalidPassword, int qtdErrors)
+        public void Execute_InvalidPassword_ReturnFalseAndQtdErrorsCorrect(string invalidPassword, int qtdErrors)
         {
             var passwordValidate = new PasswordValidate();
             

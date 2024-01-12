@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
-using ContaCertaApi.Domains.Interfaces;
+using ContaCerta.Domain.Common.Interfaces;
 
-namespace ContaCertaApi.src.Domains.Users.Validates
+namespace ContaCerta.Domains.Users.Validates
 {
     public class EmailValidate: IValidate
     {

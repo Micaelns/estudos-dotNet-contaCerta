@@ -1,4 +1,4 @@
-namespace ContaCertaApi.Domains.Interfaces
+namespace ContaCerta.Domain.Common.Interfaces
 {
     public interface IValidate
     {
