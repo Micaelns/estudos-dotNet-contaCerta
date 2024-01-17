@@ -1,14 +1,14 @@
-using ContaCerta.Domain.Common.Interfaces;
+using ContaCerta.Domain.Users.Validates.Interfaces;
 
-namespace ContaCerta.Domains.Users.Validates
+namespace ContaCerta.Domain.Users.Validates
 {
-    public class PasswordValidate: IValidate
+    public class PasswordValidate: IPasswordValidate
     {
         private List<string> _messages = new List<string>();
         public IReadOnlyList<string> Messages => _messages.AsReadOnly();
 
         public int MinLength { get => 8; }
-        public virtual bool Execute(string password)
+        public bool IsValid(string password)
         {
             _messages.Clear();
 

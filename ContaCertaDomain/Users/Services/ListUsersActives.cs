@@ -1,5 +1,5 @@
-using ContaCerta.Domains.Users.Model;
-using ContaCerta.Domains.Users.Repositories;
+using ContaCerta.Domain.Users.Model;
+using ContaCerta.Domain.Users.Repositories;
 
 namespace ContaCerta.src.Domains.Users.Services
 {

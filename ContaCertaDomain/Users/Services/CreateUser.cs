@@ -1,16 +1,16 @@
-using ContaCerta.Domains.Users.Model;
-using ContaCerta.Domains.Users.Repositories;
-using ContaCerta.Domains.Users.Validates;
+using ContaCerta.Domain.Users.Validates.Interfaces;
+using ContaCerta.Domain.Users.Model;
+using ContaCerta.Domain.Users.Repositories;
 
-namespace ContaCerta.Domains.Users.Services
+namespace ContaCerta.Domain.Users.Services
 {
     public class CreateUser
     {
         private readonly IUserRepository _userRepository;
-        private readonly EmailValidate _emailValidate;
-        private readonly PasswordValidate _passwordValidate;
+        private readonly IEmailValidate _emailValidate;
+        private readonly IPasswordValidate _passwordValidate;
         
-        public CreateUser(IUserRepository userRepository, EmailValidate emailValidate,  PasswordValidate passwordValidate)
+        public CreateUser(IUserRepository userRepository, IEmailValidate emailValidate, IPasswordValidate passwordValidate)
         {
             _userRepository = userRepository;
             _emailValidate = emailValidate;
@@ -19,12 +19,12 @@ namespace ContaCerta.Domains.Users.Services
 
         public User Execute(string email, string password)
         {
-            if (!_emailValidate.Execute(email))
+            if (!_emailValidate.IsValid(email))
             {
                 throw new ArgumentException("E-mail inválido");
             }
 
-            if (!_passwordValidate.Execute(password))
+            if (!_passwordValidate.IsValid(password))
             {
                 throw new ArgumentException("Senha inválida: \n - "+string.Join("\n - ", _passwordValidate.Messages));
             }

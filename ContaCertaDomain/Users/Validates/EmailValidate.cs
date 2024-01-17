@@ -1,14 +1,14 @@
+using ContaCerta.Domain.Users.Validates.Interfaces;
 using System.Text.RegularExpressions;
-using ContaCerta.Domain.Common.Interfaces;
 
-namespace ContaCerta.Domains.Users.Validates
+namespace ContaCerta.Domain.Users.Validates
 {
-    public class EmailValidate: IValidate
+    public class EmailValidate: IEmailValidate
     {
         private List<string> _messages = new List<string>();
         public IReadOnlyList<string> Messages => _messages.AsReadOnly();
 
-        public virtual bool Execute(string email)
+        public bool IsValid(string email)
         {
             _messages.Clear();
 

@@ -1,5 +1,5 @@
 
-namespace ContaCerta.Domains.Users.Validates
+namespace ContaCerta.Domain.Users.Validates
 {
     public class PasswordValidateTest
     {
@@ -9,7 +9,7 @@ namespace ContaCerta.Domains.Users.Validates
             string passwordSended = "abc123ABC";
             var passwordValidate = new PasswordValidate();
             
-            var isValid = passwordValidate.Execute(passwordSended);
+            var isValid = passwordValidate.IsValid(passwordSended);
 
             Assert.True(isValid);
         }
@@ -27,7 +27,7 @@ namespace ContaCerta.Domains.Users.Validates
         {
             var passwordValidate = new PasswordValidate();
             
-            var isValid = passwordValidate.Execute(invalidPassword);
+            var isValid = passwordValidate.IsValid(invalidPassword);
 
             Assert.False(isValid);
             Assert.Equal(qtdErrors, passwordValidate.Messages.Count);

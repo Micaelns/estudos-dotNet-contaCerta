@@ -1,7 +1,7 @@
-using ContaCerta.Domains.Users.Model;
+using ContaCerta.Domain.Users.Model;
 using ContaCerta.Domain.Common.Interfaces;
 
-namespace ContaCerta.Domains.Users.Repositories
+namespace ContaCerta.Domain.Users.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
