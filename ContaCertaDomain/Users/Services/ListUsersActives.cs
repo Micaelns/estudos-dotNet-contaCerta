@@ -1,12 +1,12 @@
 using ContaCerta.Domain.Users.Model;
-using ContaCerta.Domain.Users.Repositories;
+using ContaCerta.Domain.Users.Repositories.Interfaces;
 
 namespace ContaCerta.src.Domains.Users.Services
 {
-    public class ListUsersUsersActives
+    public class ListUsersActives
     {
         private readonly IUserRepository _userRepository;
-        public ListUsersUsersActives(IUserRepository userRepository) {
+        public ListUsersActives(IUserRepository userRepository) {
             _userRepository = userRepository;
         }
 

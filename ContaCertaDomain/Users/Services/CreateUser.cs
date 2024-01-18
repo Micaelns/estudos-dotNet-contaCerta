@@ -1,6 +1,6 @@
 using ContaCerta.Domain.Users.Validates.Interfaces;
 using ContaCerta.Domain.Users.Model;
-using ContaCerta.Domain.Users.Repositories;
+using ContaCerta.Domain.Users.Repositories.Interfaces;
 
 namespace ContaCerta.Domain.Users.Services
 {
