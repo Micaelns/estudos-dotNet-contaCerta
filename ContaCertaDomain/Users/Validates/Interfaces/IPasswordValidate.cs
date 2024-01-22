@@ -2,7 +2,7 @@
 
 namespace ContaCerta.Domain.Users.Validates.Interfaces
 {
-    public interface IPasswordValidate : IValidate
+    public interface IPasswordValidate : IValidate<string>
     {
     }
 }

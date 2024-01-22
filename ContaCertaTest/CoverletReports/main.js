@@ -221,6 +221,9 @@ var assemblies = [
   {
     "name": "ContaCerta.Domain",
     "classes": [
+      { "name": "ContaCerta.Domain.Costs.Model.Cost", "rp": "ContaCerta.Domain_Cost.html", "cl": 15, "ucl": 8, "cal": 23, "tl": 33, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "ContaCerta.Domain.Costs.Services.CreateCost", "rp": "ContaCerta.Domain_CreateCost.html", "cl": 16, "ucl": 0, "cal": 16, "tl": 36, "cb": 2, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "ContaCerta.Domain.Costs.Validates.CostValidate", "rp": "ContaCerta.Domain_CostValidate.html", "cl": 17, "ucl": 0, "cal": 17, "tl": 33, "cb": 6, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "ContaCerta.Domain.Users.Model.User", "rp": "ContaCerta.Domain_User.html", "cl": 11, "ucl": 7, "cal": 18, "tl": 26, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "ContaCerta.Domain.Users.Services.CreateUser", "rp": "ContaCerta.Domain_CreateUser.html", "cl": 23, "ucl": 0, "cal": 23, "tl": 46, "cb": 6, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "ContaCerta.Domain.Users.Validates.EmailValidate", "rp": "ContaCerta.Domain_EmailValidate.html", "cl": 11, "ucl": 0, "cal": 11, "tl": 26, "cb": 2, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
