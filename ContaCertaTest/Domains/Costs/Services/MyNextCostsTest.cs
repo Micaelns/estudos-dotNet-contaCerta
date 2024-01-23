@@ -2,11 +2,9 @@
 using ContaCerta.Domain.Costs.Repositories.Interfaces;
 using ContaCerta.Domain.Costs.Services;
 using ContaCerta.Domain.Users.Model;
-using ContaCerta.Domain.Users.Services;
 using Moq;
-using System;
 
-namespace ContaCerta.Test.Domains.Costs.Services
+namespace ContaCerta.Domains.Costs.Services.Test
 {
     public class MyNextCostsTest
     {
@@ -66,6 +64,20 @@ namespace ContaCerta.Test.Domains.Costs.Services
 
             var exception = Assert.Throws<ArgumentException>(Act);
             Assert.Contains("Usuário inválido ou inativo", exception.Message);
+        }
+
+        [Fact]
+        public void Execute_InvalidCostRepository_ReturnsException()
+        {
+            var costRepositoryMock = new Mock<ICostRepository>();
+            costRepositoryMock.Setup(x => x.NextCostsByUserId(It.IsAny<int>())).Throws(new Exception("Simulando um erro no CostRepository"));
+            var user = new User("email1@mail.com", "********", true);
+
+            var myNextCosts = new MyNextCosts(costRepositoryMock.Object);
+            Action Act = () => myNextCosts.Execute(user);
+
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Contains("Erro na consulta dos próximos custos", exception.Message);
         }
     }
 }

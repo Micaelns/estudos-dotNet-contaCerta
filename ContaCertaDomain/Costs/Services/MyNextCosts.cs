@@ -19,7 +19,15 @@ namespace ContaCerta.Domain.Costs.Services
             {
                 throw new ArgumentException("Usuário inválido ou inativo");
             }
-            return _costRepository.NextCostsByUserId(user.Id);
+
+            try
+            {
+                return _costRepository.NextCostsByUserId(user.Id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro na consulta dos próximos custos. \n - " + e.Message);
+            }
         }
     }
 }
