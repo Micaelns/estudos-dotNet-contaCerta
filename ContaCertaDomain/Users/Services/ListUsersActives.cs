@@ -1,7 +1,7 @@
 using ContaCerta.Domain.Users.Model;
 using ContaCerta.Domain.Users.Repositories.Interfaces;
 
-namespace ContaCerta.src.Domains.Users.Services
+namespace ContaCerta.Domain.Users.Services
 {
     public class ListUsersActives
     {

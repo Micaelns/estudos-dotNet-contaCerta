@@ -1,6 +1,5 @@
 using ContaCerta.Domain.Users.Model;
 using ContaCerta.Domain.Users.Repositories.Interfaces;
-using ContaCerta.src.Domains.Users.Services;
 using Moq;
 
 namespace ContaCerta.Domain.Users.Services.Tests

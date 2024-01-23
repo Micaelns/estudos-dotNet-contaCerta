@@ -221,14 +221,16 @@ var assemblies = [
   {
     "name": "ContaCerta.Domain",
     "classes": [
-      { "name": "ContaCerta.Domain.Costs.Model.Cost", "rp": "ContaCerta.Domain_Cost.html", "cl": 15, "ucl": 8, "cal": 23, "tl": 33, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "ContaCerta.Domain.Costs.Model.Cost", "rp": "ContaCerta.Domain_Cost.html", "cl": 17, "ucl": 9, "cal": 26, "tl": 36, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "ContaCerta.Domain.Costs.Services.CreateCost", "rp": "ContaCerta.Domain_CreateCost.html", "cl": 16, "ucl": 0, "cal": 16, "tl": 36, "cb": 2, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "ContaCerta.Domain.Costs.Services.MyLastCosts", "rp": "ContaCerta.Domain_MyLastCosts.html", "cl": 17, "ucl": 0, "cal": 17, "tl": 38, "cb": 6, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "ContaCerta.Domain.Costs.Services.MyNextCosts", "rp": "ContaCerta.Domain_MyNextCosts.html", "cl": 14, "ucl": 0, "cal": 14, "tl": 33, "cb": 4, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "ContaCerta.Domain.Costs.Validates.CostValidate", "rp": "ContaCerta.Domain_CostValidate.html", "cl": 17, "ucl": 0, "cal": 17, "tl": 33, "cb": 6, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "ContaCerta.Domain.Users.Model.User", "rp": "ContaCerta.Domain_User.html", "cl": 11, "ucl": 7, "cal": 18, "tl": 26, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "ContaCerta.Domain.Users.Model.User", "rp": "ContaCerta.Domain_User.html", "cl": 21, "ucl": 0, "cal": 21, "tl": 29, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "ContaCerta.Domain.Users.Services.CreateUser", "rp": "ContaCerta.Domain_CreateUser.html", "cl": 23, "ucl": 0, "cal": 23, "tl": 46, "cb": 6, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "ContaCerta.Domain.Users.Services.ListUsersActives", "rp": "ContaCerta.Domain_ListUsersActives.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 18, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "ContaCerta.Domain.Users.Validates.EmailValidate", "rp": "ContaCerta.Domain_EmailValidate.html", "cl": 11, "ucl": 0, "cal": 11, "tl": 26, "cb": 2, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "ContaCerta.Domain.Users.Validates.PasswordValidate", "rp": "ContaCerta.Domain_PasswordValidate.html", "cl": 27, "ucl": 0, "cal": 27, "tl": 44, "cb": 16, "tb": 16, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "ContaCerta.src.Domains.Users.Services.ListUsersActives", "rp": "ContaCerta.Domain_ListUsersActives.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 18, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
     ]},
 ];
 
