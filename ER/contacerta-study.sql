@@ -16,6 +16,7 @@ CREATE TABLE "public.Costs" (
 	"title" VARCHAR(100) NOT NULL,
 	"descripcion" TEXT NOT NULL,
 	"value" FLOAT NOT NULL,
+	"payment_date" DATE,
 	"active" BOOLEAN NOT NULL DEFAULT 'true',
 	"created_at" DATETIME NOT NULL DEFAULT 'now',
 	"user_id_requested" integer NOT NULL,

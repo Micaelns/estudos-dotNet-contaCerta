@@ -12,9 +12,10 @@ namespace ContaCerta.Test.Domains.Costs.Validates
             string titleSended = "valid_title";
             string descriptionSended = "valid_description";
             float valueSended = 1;
+            DateTime paymentDateSended = DateTime.Now.AddDays(5);
             User userRequestedSended = new User("valid_email", "valid_password", true);
             bool activeSended = true;
-            var costValid = new Cost(titleSended, descriptionSended, valueSended, userRequestedSended, activeSended);
+            var costValid = new Cost(titleSended, descriptionSended, valueSended, paymentDateSended, userRequestedSended, activeSended);
 
             var costValidate = new CostValidate();
             var isValid = costValidate.IsValid(costValid);
@@ -31,9 +32,10 @@ namespace ContaCerta.Test.Domains.Costs.Validates
             string expectedMessageError = "O titulo do custo não pode ser vazio.";
             string descriptionSended = "valid_description";
             float valueSended = 1;
+            DateTime paymentDateSended = DateTime.Now.AddDays(5);
             User userRequestedSended = new User("valid_email", "valid_password", true);
             bool activeSended = true;
-            var costValid = new Cost(invalidTitle, descriptionSended, valueSended, userRequestedSended, activeSended);
+            var costValid = new Cost(invalidTitle, descriptionSended, valueSended, paymentDateSended, userRequestedSended, activeSended);
 
             var costValidate = new CostValidate();
             var isValid = costValidate.IsValid(costValid);
@@ -49,9 +51,10 @@ namespace ContaCerta.Test.Domains.Costs.Validates
             string titleSended = "valid_title";
             string descriptionSended = "valid_description";
             float valueSended = 1;
+            DateTime paymentDateSended = DateTime.Now.AddDays(5);
             User userRequestedSended = null;
             bool activeSended = true;
-            var costValid = new Cost(titleSended, descriptionSended, valueSended, userRequestedSended, activeSended);
+            var costValid = new Cost(titleSended, descriptionSended, valueSended, paymentDateSended, userRequestedSended, activeSended);
 
             var costValidate = new CostValidate();
             var isValid = costValidate.IsValid(costValid);
@@ -72,9 +75,10 @@ namespace ContaCerta.Test.Domains.Costs.Validates
             string expectedMessageError = "O valor não pode ser negativo.";
             string titleSended = "valid_title";
             string descriptionSended = "valid_description";
+            DateTime paymentDateSended = DateTime.Now.AddDays(5);
             User userRequestedSended = new User("valid_email", "valid_password", true);
             bool activeSended = true;
-            var costValid = new Cost(titleSended, descriptionSended, invalidValue, userRequestedSended, activeSended);
+            var costValid = new Cost(titleSended, descriptionSended, invalidValue, paymentDateSended, userRequestedSended, activeSended);
 
             var costValidate = new CostValidate();
             var isValid = costValidate.IsValid(costValid);

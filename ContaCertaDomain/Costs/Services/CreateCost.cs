@@ -16,9 +16,9 @@ namespace ContaCerta.Domain.Costs.Services
             _costValidate = costValidate;
         }
 
-        public Cost Execute(string title, string description, float value, User userRequested, bool active)
+        public Cost Execute(string title, string description, float value, DateTime paymentDate, User userRequested, bool active)
         {
-            var cost = new Cost(title, description, value, userRequested, active);
+            var cost = new Cost(title, description, value, paymentDate, userRequested, active);
             if (!_costValidate.IsValid(cost))
             {
                 throw new ArgumentException("Custo inválido: \n - "+string.Join("\n - ", _costValidate.Messages));

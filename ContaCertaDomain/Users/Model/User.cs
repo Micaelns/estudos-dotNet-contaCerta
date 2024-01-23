@@ -2,7 +2,9 @@ namespace ContaCerta.Domain.Users.Model
 {
     public class User
     {
-        public User() {
+        public User()
+        {
+            Id = -1;
             Email = "";
             Password = "";
             LastAccess = null;
@@ -11,6 +13,7 @@ namespace ContaCerta.Domain.Users.Model
 
         public User(string email, string password, bool active)
         {
+            Id = 0;
             Email = email;
             Password = password;
             LastAccess = DateTimeOffset.Now;
