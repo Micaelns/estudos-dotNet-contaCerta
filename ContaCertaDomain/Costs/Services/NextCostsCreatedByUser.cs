@@ -4,22 +4,17 @@ using ContaCerta.Domain.Users.Model;
 
 namespace ContaCerta.Domain.Costs.Services
 {
-    public class MyLastCosts
+    public class NextCostsCreatedByUser
     {
         private readonly ICostRepository _costRepository;
 
-        public MyLastCosts(ICostRepository costRepository)
+        public NextCostsCreatedByUser(ICostRepository costRepository)
         {
             _costRepository = costRepository;
         }
 
-        public Cost[] Execute(User user, int lastDays = 15)
+        public Cost[] Execute(User user)
         {
-            if (lastDays < 0)
-            {
-                throw new ArgumentException("O número de dias deve ser maior ou igual a zero");
-            }
-
             if (user == null || user.Active == false)
             {
                 throw new ArgumentException("Usuário inválido ou inativo");
@@ -27,11 +22,11 @@ namespace ContaCerta.Domain.Costs.Services
 
             try
             {
-                return _costRepository.LastCostsByUserId(user.Id, lastDays);
+                return _costRepository.NextCostsCreatedByUserId(user.Id);
             }
             catch (Exception e)
             {
-                throw new Exception("Erro na consulta dos ultimos "+ lastDays + " custos. \n - " + e.Message);
+                throw new Exception("Erro na consulta dos próximos custos criado por " + user.Email + ". \n - " + e.Message);
             }
         }
     }
