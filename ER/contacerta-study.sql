@@ -27,7 +27,7 @@ CREATE TABLE "public.Costs" (
 
 
 
-CREATE TABLE "public.cost_user" (
+CREATE TABLE "public.user_cost" (
 	"id" serial NOT NULL,
 	"value" FLOAT NOT NULL,
 	"payed" BOOLEAN NOT NULL DEFAULT 'false',
@@ -35,7 +35,7 @@ CREATE TABLE "public.cost_user" (
 	"cost_id" integer NOT NULL,
 	"user_id" integer NOT NULL,
 	"created_at" DATETIME NOT NULL DEFAULT 'now',
-	CONSTRAINT "cost_user_pk" PRIMARY KEY ("id")
+	CONSTRAINT "user_cost_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
@@ -45,8 +45,8 @@ CREATE TABLE "public.cost_user" (
 
 ALTER TABLE "Costs" ADD CONSTRAINT "Costs_fk0" FOREIGN KEY ("user_id_requested") REFERENCES "User"("id");
 
-ALTER TABLE "cost_user" ADD CONSTRAINT "cost_user_fk0" FOREIGN KEY ("cost_id") REFERENCES "Costs"("id");
-ALTER TABLE "cost_user" ADD CONSTRAINT "cost_user_fk1" FOREIGN KEY ("user_id") REFERENCES "User"("id");
+ALTER TABLE "user_cost" ADD CONSTRAINT "user_cost_fk0" FOREIGN KEY ("cost_id") REFERENCES "Costs"("id");
+ALTER TABLE "user_cost" ADD CONSTRAINT "user_cost_fk1" FOREIGN KEY ("user_id") REFERENCES "User"("id");
 
 
 
