@@ -4,9 +4,9 @@ using ContaCerta.Domain.Costs.Services;
 using ContaCerta.Domain.Users.Model;
 using Moq;
 
-namespace ContaCerta.Domains.Costs.Services.Test
+namespace ContaCerta.Tests.Domains.Costs.Services
 {
-    public class MyNextCostsTest
+    public class NextCostsTest
     {
         [Fact]
         public void Execute_ValidUser_ReturnsArrayExistingNextCost()
@@ -21,7 +21,7 @@ namespace ContaCerta.Domains.Costs.Services.Test
             var costRepositoryMock = new Mock<ICostRepository>();
             costRepositoryMock.Setup(x => x.NextCostsByUserId(It.IsAny<int>())).Returns(nextCosts);
 
-            var myNextCosts = new MyNextCosts(costRepositoryMock.Object);
+            var myNextCosts = new NextCosts(costRepositoryMock.Object);
             var costs = myNextCosts.Execute(user);
 
             Assert.True(costs.Length == nextCosts.Length);
@@ -35,7 +35,7 @@ namespace ContaCerta.Domains.Costs.Services.Test
             var costRepositoryMock = new Mock<ICostRepository>();
             costRepositoryMock.Setup(x => x.NextCostsByUserId(It.IsAny<int>())).Returns(Array.Empty<Cost>());
 
-            var myNextCosts = new MyNextCosts(costRepositoryMock.Object);
+            var myNextCosts = new NextCosts(costRepositoryMock.Object);
             var costs = myNextCosts.Execute(user);
 
             Assert.Empty(costs);
@@ -46,7 +46,7 @@ namespace ContaCerta.Domains.Costs.Services.Test
         {
             var costRepositoryMock = new Mock<ICostRepository>();
 
-            var myNextCosts = new MyNextCosts(costRepositoryMock.Object);
+            var myNextCosts = new NextCosts(costRepositoryMock.Object);
             Action Act = () => myNextCosts.Execute(null);
 
             var exception = Assert.Throws<ArgumentException>(Act);
@@ -59,7 +59,7 @@ namespace ContaCerta.Domains.Costs.Services.Test
             var costRepositoryMock = new Mock<ICostRepository>();
             var user = new User();
 
-            var myNextCosts = new MyNextCosts(costRepositoryMock.Object);
+            var myNextCosts = new NextCosts(costRepositoryMock.Object);
             Action Act = () => myNextCosts.Execute(user);
 
             var exception = Assert.Throws<ArgumentException>(Act);
@@ -73,7 +73,7 @@ namespace ContaCerta.Domains.Costs.Services.Test
             costRepositoryMock.Setup(x => x.NextCostsByUserId(It.IsAny<int>())).Throws(new Exception("Simulando um erro no CostRepository"));
             var user = new User("email1@mail.com", "********", true);
 
-            var myNextCosts = new MyNextCosts(costRepositoryMock.Object);
+            var myNextCosts = new NextCosts(costRepositoryMock.Object);
             Action Act = () => myNextCosts.Execute(user);
 
             var exception = Assert.Throws<Exception>(Act);

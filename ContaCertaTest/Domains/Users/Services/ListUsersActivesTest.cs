@@ -1,8 +1,9 @@
 using ContaCerta.Domain.Users.Model;
 using ContaCerta.Domain.Users.Repositories.Interfaces;
+using ContaCerta.Domain.Users.Services;
 using Moq;
 
-namespace ContaCerta.Domain.Users.Services.Tests
+namespace ContaCerta.Tests.Domain.Users.Services
 {
     public class ListUsersActivesTest
     {

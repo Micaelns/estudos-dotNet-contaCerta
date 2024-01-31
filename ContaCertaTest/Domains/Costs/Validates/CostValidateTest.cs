@@ -2,7 +2,7 @@
 using ContaCerta.Domain.Costs.Validates;
 using ContaCerta.Domain.Users.Model;
 
-namespace ContaCerta.Test.Domains.Costs.Validates
+namespace ContaCerta.Tests.Domains.Costs.Validates
 {
     public class CostValidateTest
     {

@@ -1,10 +1,11 @@
 ﻿using ContaCerta.Domain.Costs.Model;
 using ContaCerta.Domain.Costs.Repositories.Interfaces;
+using ContaCerta.Domain.Costs.Services;
 using ContaCerta.Domain.Costs.Validates.Interfaces;
 using ContaCerta.Domain.Users.Model;
 using Moq;
 
-namespace ContaCerta.Domain.Costs.Services.Tests
+namespace ContaCerta.Tests.Domain.Costs.Services
 {
     public class CreateCostTest
     {

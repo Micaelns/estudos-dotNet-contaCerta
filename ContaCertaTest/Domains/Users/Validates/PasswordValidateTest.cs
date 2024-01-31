@@ -1,4 +1,6 @@
-namespace ContaCerta.Domain.Users.Validates.Tests
+using ContaCerta.Domain.Users.Validates;
+
+namespace ContaCerta.Tests.Domain.Users.Validates
 {
     public class PasswordValidateTest
     {

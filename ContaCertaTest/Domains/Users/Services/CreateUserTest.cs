@@ -1,9 +1,10 @@
 using ContaCerta.Domain.Users.Model;
 using ContaCerta.Domain.Users.Repositories.Interfaces;
+using ContaCerta.Domain.Users.Services;
 using ContaCerta.Domain.Users.Validates.Interfaces;
 using Moq;
 
-namespace ContaCerta.Domain.Users.Services.Tests
+namespace ContaCerta.Tests.Domain.Users.Services
 {
     public class CreateUserTest
     {

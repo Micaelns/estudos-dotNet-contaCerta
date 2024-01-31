@@ -4,12 +4,12 @@ using ContaCerta.Domain.Costs.Services;
 using ContaCerta.Domain.Users.Model;
 using Moq;
 
-namespace ContaCerta.Domains.Costs.Services.Test
+namespace ContaCerta.Tests.Domains.Costs.Services
 {
-    public class MyLastCostsTest
+    public class LastCostsCreatedByUserTest
     {
         [Fact]
-        public void Execute_ValidUserWithoutLastDays_ReturnsArrayExistingLastCostOfDefaultLastDays()
+        public void Execute_ValidUserWithoutLastDays_ReturnsArrayExistingLastCostCreatedOfDefaultLastDays()
         {
             var user = new User("email1@mail.com", "********", true);
             var lastCosts = new[]
@@ -19,16 +19,16 @@ namespace ContaCerta.Domains.Costs.Services.Test
                 new Cost("Conta de telefone", "", 150, DateTime.Now.AddDays(-3), user)
             };
             var costRepositoryMock = new Mock<ICostRepository>();
-            costRepositoryMock.Setup(x => x.LastCostsByUserId(It.IsAny<int>(), It.IsAny<int>())).Returns(lastCosts);
+            costRepositoryMock.Setup(x => x.LastCostsCreatedByUserId(It.IsAny<int>(), It.IsAny<int>())).Returns(lastCosts);
 
-            var myLastCosts = new MyLastCosts(costRepositoryMock.Object);
+            var myLastCosts = new LastCostsCreatedByUser(costRepositoryMock.Object);
             var costs = myLastCosts.Execute(user);
 
             Assert.True(costs.Length == lastCosts.Length);
         }
 
         [Fact]
-        public void Execute_ValidUserWithValidLastDays_ReturnsArrayExistingLastCost()
+        public void Execute_ValidUserWithValidLastDays_ReturnsArrayExistingLastCostCreated()
         {
             int lastDays = 20;
             var user = new User("email1@mail.com", "********", true);
@@ -39,9 +39,9 @@ namespace ContaCerta.Domains.Costs.Services.Test
                 new Cost("Conta de telefone", "", 150, DateTime.Now.AddDays(-3), user)
             };
             var costRepositoryMock = new Mock<ICostRepository>();
-            costRepositoryMock.Setup(x => x.LastCostsByUserId(It.IsAny<int>(), It.IsAny<int>())).Returns(lastCosts);
+            costRepositoryMock.Setup(x => x.LastCostsCreatedByUserId(It.IsAny<int>(), It.IsAny<int>())).Returns(lastCosts);
 
-            var myLastCosts = new MyLastCosts(costRepositoryMock.Object);
+            var myLastCosts = new LastCostsCreatedByUser(costRepositoryMock.Object);
             var costs = myLastCosts.Execute(user, lastDays);
 
             Assert.True(costs.Length == lastCosts.Length);
@@ -56,8 +56,8 @@ namespace ContaCerta.Domains.Costs.Services.Test
         {
             var user = new User("email1@mail.com", "********", true);
             var costRepositoryMock = new Mock<ICostRepository>();
-            
-            var myLastCosts = new MyLastCosts(costRepositoryMock.Object);
+
+            var myLastCosts = new LastCostsCreatedByUser(costRepositoryMock.Object);
             Action Act = () => myLastCosts.Execute(user, _lastDays);
 
             var exception = Assert.Throws<ArgumentException>(Act);
@@ -69,7 +69,7 @@ namespace ContaCerta.Domains.Costs.Services.Test
         {
             var costRepositoryMock = new Mock<ICostRepository>();
 
-            var myLastCosts = new MyLastCosts(costRepositoryMock.Object);
+            var myLastCosts = new LastCostsCreatedByUser(costRepositoryMock.Object);
             Action Act = () => myLastCosts.Execute(null);
 
             var exception = Assert.Throws<ArgumentException>(Act);
@@ -82,7 +82,7 @@ namespace ContaCerta.Domains.Costs.Services.Test
             var costRepositoryMock = new Mock<ICostRepository>();
             var user = new User();
 
-            var myLastCosts = new MyLastCosts(costRepositoryMock.Object);
+            var myLastCosts = new LastCostsCreatedByUser(costRepositoryMock.Object);
             Action Act = () => myLastCosts.Execute(user);
 
             var exception = Assert.Throws<ArgumentException>(Act);
@@ -94,14 +94,14 @@ namespace ContaCerta.Domains.Costs.Services.Test
         {
             int lastDays = 5;
             var costRepositoryMock = new Mock<ICostRepository>();
-            costRepositoryMock.Setup(x => x.LastCostsByUserId(It.IsAny<int>(), It.IsAny<int>())).Throws(new Exception("Simulando um erro no CostRepository"));
+            costRepositoryMock.Setup(x => x.LastCostsCreatedByUserId(It.IsAny<int>(), It.IsAny<int>())).Throws(new Exception("Simulando um erro no CostRepository"));
             var user = new User("email1@mail.com", "********", true);
 
-            var myLastCosts = new MyLastCosts(costRepositoryMock.Object);
+            var myLastCosts = new LastCostsCreatedByUser(costRepositoryMock.Object);
             Action Act = () => myLastCosts.Execute(user, lastDays);
 
             var exception = Assert.Throws<Exception>(Act);
-            Assert.Contains("Erro na consulta dos ultimos "+ lastDays + " custos", exception.Message);
+            Assert.Contains("Erro na consulta dos ultimos " + lastDays + " custos criado por " + user.Email, exception.Message);
         }
     }
 }
