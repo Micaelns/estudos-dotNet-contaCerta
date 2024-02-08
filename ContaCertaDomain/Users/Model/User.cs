@@ -27,6 +27,21 @@ namespace ContaCerta.Domain.Users.Model
         public string Password { get; set; }
         public DateTimeOffset? LastAccess { get; set; }
         public bool Active { get; set; }
-        public List<UserCost> UserCosts { get; set; } 
+        public List<UserCost> UserCosts { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            User user = (User)obj;
+            return user.Email == Email && user.Active == Active;
+        }
+
+        public override int GetHashCode()
+        {
+            return Email.GetHashCode() ^ Active.GetHashCode();
+        }
     }
 }
