@@ -1,25 +1,29 @@
 ﻿using ContaCerta.Domain.Costs.Model;
 using ContaCerta.Domain.Costs.Repositories.Interfaces;
-using ContaCerta.Domain.Costs.Services;
 using ContaCerta.Domain.Users.Model;
+using ContaCerta.Domain.Users.Repositories.Interfaces;
+using ContaCerta.Domain.Users.Services;
 using Moq;
 
-namespace ContaCerta.Tests.Domains.Costs.Services
+namespace ContaCerta.Tests.Domain.Users.Services
 {
     public class NextCostsTest
     {
         [Fact]
-        public void Execute_ValidUser_ReturnsArrayExistingNextCost()
+        public void Execute_ValidUser_ReturnsArrayExistingNextCosts()
         {
             var user = new User("email1@mail.com", "********", true);
+            var cost = new Cost("Conta de luz", "", 100, DateTime.Now.AddDays(5), user);
+            var cost2 = new Cost("Conta de água", "", 50, DateTime.Now.AddDays(2), user);
+            var cost3 = new Cost("Conta de telefone", "", 150, DateTime.Now.AddDays(3), user);
             var nextCosts = new[]
             {
-                new Cost("Conta de luz", "", 100, DateTime.Now.AddDays(5), user),
-                new Cost("Conta de água", "", 50, DateTime.Now.AddDays(2), user),
-                new Cost("Conta de telefone", "", 150, DateTime.Now.AddDays(3), user)
+                new UserCost(user, cost),
+                new UserCost(user, cost2),
+                new UserCost(user, cost3),
             };
-            var costRepositoryMock = new Mock<ICostRepository>();
-            costRepositoryMock.Setup(x => x.NextCostsByUserId(It.IsAny<int>())).Returns(nextCosts);
+            var costRepositoryMock = new Mock<IUserCostRepository>();
+            costRepositoryMock.Setup(x => x.NextUserCostByUser(It.IsAny<User>())).Returns(nextCosts);
 
             var myNextCosts = new NextCosts(costRepositoryMock.Object);
             var costs = myNextCosts.Execute(user);
@@ -32,8 +36,8 @@ namespace ContaCerta.Tests.Domains.Costs.Services
         {
             var user = new User("email1@mail.com", "********", true);
 
-            var costRepositoryMock = new Mock<ICostRepository>();
-            costRepositoryMock.Setup(x => x.NextCostsByUserId(It.IsAny<int>())).Returns(Array.Empty<Cost>());
+            var costRepositoryMock = new Mock<IUserCostRepository>();
+            costRepositoryMock.Setup(x => x.NextUserCostByUser(It.IsAny<User>())).Returns(Array.Empty<UserCost>());
 
             var myNextCosts = new NextCosts(costRepositoryMock.Object);
             var costs = myNextCosts.Execute(user);
@@ -44,7 +48,7 @@ namespace ContaCerta.Tests.Domains.Costs.Services
         [Fact]
         public void Execute_InvalidUser_ReturnArgumentException()
         {
-            var costRepositoryMock = new Mock<ICostRepository>();
+            var costRepositoryMock = new Mock<IUserCostRepository>();
 
             var myNextCosts = new NextCosts(costRepositoryMock.Object);
             Action Act = () => myNextCosts.Execute(null);
@@ -56,7 +60,7 @@ namespace ContaCerta.Tests.Domains.Costs.Services
         [Fact]
         public void Execute_InactiveUser_ReturnArgumentException()
         {
-            var costRepositoryMock = new Mock<ICostRepository>();
+            var costRepositoryMock = new Mock<IUserCostRepository>();
             var user = new User();
 
             var myNextCosts = new NextCosts(costRepositoryMock.Object);
@@ -69,8 +73,8 @@ namespace ContaCerta.Tests.Domains.Costs.Services
         [Fact]
         public void Execute_InvalidCostRepository_ReturnsException()
         {
-            var costRepositoryMock = new Mock<ICostRepository>();
-            costRepositoryMock.Setup(x => x.NextCostsByUserId(It.IsAny<int>())).Throws(new Exception("Simulando um erro no CostRepository"));
+            var costRepositoryMock = new Mock<IUserCostRepository>();
+            costRepositoryMock.Setup(x => x.NextUserCostByUser(It.IsAny<User>())).Throws(new Exception("Simulando um erro no CostRepository"));
             var user = new User("email1@mail.com", "********", true);
 
             var myNextCosts = new NextCosts(costRepositoryMock.Object);

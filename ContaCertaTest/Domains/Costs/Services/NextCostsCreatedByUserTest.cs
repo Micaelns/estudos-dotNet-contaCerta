@@ -4,7 +4,7 @@ using ContaCerta.Domain.Costs.Services;
 using ContaCerta.Domain.Users.Model;
 using Moq;
 
-namespace ContaCerta.Tests.Domains.Costs.Services
+namespace ContaCerta.Tests.Domain.Costs.Services
 {
     public class NextCostsCreatedByUserTest
     {

@@ -1,19 +1,18 @@
-﻿using ContaCerta.Domain.Costs.Model;
-using ContaCerta.Domain.Costs.Repositories.Interfaces;
-using ContaCerta.Domain.Users.Model;
+﻿using ContaCerta.Domain.Users.Model;
+using ContaCerta.Domain.Users.Repositories.Interfaces;
 
-namespace ContaCerta.Domain.Costs.Services
+namespace ContaCerta.Domain.Users.Services
 {
     public class NextCosts
     {
-        private readonly ICostRepository _costRepository;
+        private readonly IUserCostRepository _userCostRepository;
 
-        public NextCosts(ICostRepository costRepository)
+        public NextCosts(IUserCostRepository userCostRepository)
         {
-            _costRepository = costRepository;
+            _userCostRepository = userCostRepository;
         }
 
-        public Cost[] Execute(User user)
+        public UserCost[] Execute(User user)
         {
             if (user == null || user.Active == false)
             {
@@ -22,7 +21,7 @@ namespace ContaCerta.Domain.Costs.Services
 
             try
             {
-                return _costRepository.NextCostsByUserId(user.Id);
+                return _userCostRepository.NextUserCostByUser(user);
             }
             catch (Exception e)
             {

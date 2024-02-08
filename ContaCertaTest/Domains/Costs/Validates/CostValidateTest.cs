@@ -2,7 +2,7 @@
 using ContaCerta.Domain.Costs.Validates;
 using ContaCerta.Domain.Users.Model;
 
-namespace ContaCerta.Tests.Domains.Costs.Validates
+namespace ContaCerta.Tests.Domain.Costs.Validates
 {
     public class CostValidateTest
     {
@@ -45,7 +45,7 @@ namespace ContaCerta.Tests.Domains.Costs.Validates
         }
 
         [Fact]
-        public void IsValid_InvalidUserOnDataToCreateCost_ReturnFalses()
+        public void IsValid_InvalidUserOnDataToCreateCost_ReturnFalse()
         {
             string expectedMessageError = "O usuário deve ser válido.";
             string titleSended = "valid_title";
