@@ -14,7 +14,7 @@ namespace ContaCerta.Domain.Costs.Model
             UserCosts = [];
         }
 
-        public Cost(string title, string description, float value, DateTime paymentDate , User userRequested, bool active = true)
+        public Cost(string title, string? description, float value, DateTime? paymentDate , User userRequested, bool active = true)
         {
             Title = title;
             Description = description;
@@ -28,7 +28,7 @@ namespace ContaCerta.Domain.Costs.Model
 
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public float Value { get; set; }
         public DateTime? PaymentDate { get; set; }
         public bool Active { get; set; }
