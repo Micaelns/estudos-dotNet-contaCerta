@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCerta.Test", "ContaCer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCerta.Api", "ContaCertaApi\ContaCerta.Api.csproj", "{DD0E2D5D-6CD0-4414-A1CE-22D4C7C2B932}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCerta.Domain", "ContaCertaDomain\ContaCerta.Domain.csproj", "{AB6ED1C6-C26A-4E00-B840-2F55A802CAFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCerta.Domain", "ContaCertaDomain\ContaCerta.Domain.csproj", "{AB6ED1C6-C26A-4E00-B840-2F55A802CAFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

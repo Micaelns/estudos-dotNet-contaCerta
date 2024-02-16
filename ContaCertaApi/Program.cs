@@ -3,7 +3,7 @@ using ContaCerta.Api.Configs;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.RegisterContexts(builder.Configuration.GetConnectionString("conexaoPadrao"));
 builder.Services.RegisterServices();
 builder.Services.ResolveInterfaces();
 builder.Services.AddControllers();
