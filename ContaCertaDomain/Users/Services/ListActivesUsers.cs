@@ -3,10 +3,10 @@ using ContaCerta.Domain.Users.Repositories.Interfaces;
 
 namespace ContaCerta.Domain.Users.Services
 {
-    public class ListUsersActives
+    public class ListActivesUsers
     {
         private readonly IUserRepository _userRepository;
-        public ListUsersActives(IUserRepository userRepository) {
+        public ListActivesUsers(IUserRepository userRepository) {
             _userRepository = userRepository;
         }
 

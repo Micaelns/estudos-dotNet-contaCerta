@@ -18,7 +18,7 @@ namespace ContaCerta.Tests.Domain.Users.Services
             var userRepositoryMock = new Mock<IUserRepository>();
             userRepositoryMock.Setup(x => x.ListActives()).Returns(activesUsers);
 
-            var usersActives = new ListUsersActives(userRepositoryMock.Object);
+            var usersActives = new ListActivesUsers(userRepositoryMock.Object);
             var usersList = usersActives.Execute();
 
             Assert.Equal(activesUsers.Length, usersList.Length);
@@ -30,7 +30,7 @@ namespace ContaCerta.Tests.Domain.Users.Services
             var userRepositoryMock = new Mock<IUserRepository>();
             userRepositoryMock.Setup(x => x.ListActives()).Returns(Array.Empty<User>());
 
-            var usersActives = new ListUsersActives(userRepositoryMock.Object);
+            var usersActives = new ListActivesUsers(userRepositoryMock.Object);
             var usersList = usersActives.Execute();
 
             Assert.Empty(usersList);
