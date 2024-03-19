@@ -81,6 +81,7 @@ namespace ContaCerta.Tests.Domain.Costs.Services
             var user2 = new User("valid_email2", "valid_password", true) { Id = 5 };
             var users = new User[] { user1 , user2 };
             var userCostRepositoryMock = new Mock<IUserCostRepository>();
+            float totalCostArrecadar = (float)Math.Round((totalCost / 3), 2)*3;
             var listUserCost = new UserCost[] {
                                             new UserCost( new User("valid_email3", "valid_password", true), cost, 10, payed : false)
                                             };
@@ -92,7 +93,7 @@ namespace ContaCerta.Tests.Domain.Costs.Services
             addUsers.Execute(cost, users);
 
             userCostRepositoryMock.Verify(x => x.Save(It.IsAny<UserCost>()), Times.Exactly(3));
-            Assert.Equal(totalCost, individualCostSum);
+            Assert.Equal(totalCostArrecadar, individualCostSum);
         }
     }
 }

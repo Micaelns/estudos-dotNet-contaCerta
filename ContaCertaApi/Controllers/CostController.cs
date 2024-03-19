@@ -1,5 +1,5 @@
 ﻿using ContaCerta.Domain.Costs.Services;
-using ContaCerta.Domain.Users.Model;
+using ContaCerta.Domain.Users.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContaCerta.Api.Controllers
@@ -9,11 +9,12 @@ namespace ContaCerta.Api.Controllers
     public class CostController : ControllerBase
     {
         [HttpPost]
-        public IActionResult CreateCost(CreateCost _createCost ,[FromQuery] string title ,[FromQuery] string? description ,[FromQuery] float value ,[FromQuery] DateTime? paymentDate ,[FromQuery] bool active)
+        public IActionResult CreateCost(CreateCost _createCost, FindActiveUserByEmail _findUser, [FromQuery] string title, [FromQuery] string? description, [FromQuery] float value, [FromQuery] string email, [FromQuery] DateTime? paymentDate, [FromQuery] bool active)
         {
             try
             {
-                var costs = _createCost.Execute(title, description, value, paymentDate, new User("user", "****", true), active);
+                var LoggedUser = _findUser.Execute(email);
+                var costs = _createCost.Execute(title, description, value, paymentDate, LoggedUser, active);
                 return Ok(costs);
             } catch (Exception e)
             {
@@ -21,5 +22,59 @@ namespace ContaCerta.Api.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("{costId}/add-users")]
+        public IActionResult AddUsersCost(FindCost _findCost, FindActiveUserByEmail _findUser, AddUsers _addUsers, [FromRoute] int costId, [FromBody] string[] emailUser)
+        {
+            try
+            {
+                var cost = _findCost.Execute(costId);
+                var users = emailUser.Select(_findUser.Execute).ToArray();
+                _addUsers.Execute(cost, users);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("last/created")]
+        public IActionResult GetLastCostsCreatedByUser(LastCostsCreatedByUser _lastCosts, FindActiveUserByEmail _findUser, [FromQuery] string email)
+        {
+            try
+            {
+                var LoggedUser = _findUser.Execute(email);
+                var costs = _lastCosts.Execute(LoggedUser);
+                if (costs.Length == 0)
+                    return NoContent();
+
+                return Ok(costs);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("next/created")]
+        public IActionResult GetNextCostsCreatedByUser(NextCostsCreatedByUser _nextCosts, FindActiveUserByEmail _findUser, [FromQuery] string email)
+        {
+            try
+            {
+                var LoggedUser = _findUser.Execute(email);
+                var costs = _nextCosts.Execute(LoggedUser);
+                if (costs.Length == 0)
+                    return NoContent();
+
+                return Ok(costs);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

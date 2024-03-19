@@ -4,18 +4,21 @@ namespace ContaCerta.Domain.Costs.Model
 {
     public class Cost
     {
-        public Cost() {
+        public Cost()
+        {
+            Id = -1;
             Title = "";
             Description = "";
             Value = 0;
             Active = false;
             CreatedAt = null;
             UserRequested = new User();
-            UserCosts = [];
+            //UserCosts = [];
         }
 
         public Cost(string title, string? description, float value, DateTime? paymentDate , User userRequested, bool active = true)
         {
+            Id = 0;
             Title = title;
             Description = description;
             Value = value;
@@ -23,7 +26,7 @@ namespace ContaCerta.Domain.Costs.Model
             Active = active;
             CreatedAt = DateTimeOffset.Now;
             UserRequested = userRequested;
-            UserCosts = [];
+           // UserCosts = [];
         }
 
         public int Id { get; set; }
@@ -34,6 +37,6 @@ namespace ContaCerta.Domain.Costs.Model
         public bool Active { get; set; }
         public DateTimeOffset? CreatedAt { get; set; }
         public User UserRequested { get; set; }
-        public List<UserCost> UserCosts { get; set; }
+        //public List<UserCost> UserCosts { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace ContaCerta.Domain.Users.Model
             Password = "";
             LastAccess = null;
             Active = false;
-            UserCosts = [];
+            //UserCosts = [];
         }
 
         public User(string email, string password, bool active)
@@ -19,7 +19,7 @@ namespace ContaCerta.Domain.Users.Model
             Password = password;
             LastAccess = DateTimeOffset.Now;
             Active = active;
-            UserCosts = [];
+            //UserCosts = [];
         }
 
         public int Id { get; set; }
@@ -27,7 +27,7 @@ namespace ContaCerta.Domain.Users.Model
         public string Password { get; set; }
         public DateTimeOffset? LastAccess { get; set; }
         public bool Active { get; set; }
-        public List<UserCost> UserCosts { get; set; }
+        //public List<UserCost> UserCosts { get; set; }
 
         public override bool Equals(object obj)
         {

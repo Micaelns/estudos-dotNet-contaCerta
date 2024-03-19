@@ -26,7 +26,8 @@ namespace ContaCerta.Domain.Users.Services
 
             try
             {
-                return _userCostRepository.LastUserCostsByUser(user, lastDays);
+                var userCosts = _userCostRepository.LastUserCostsByUser(user, lastDays);
+                return userCosts;
             }
             catch (Exception e)
             {

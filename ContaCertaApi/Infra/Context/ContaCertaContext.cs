@@ -2,7 +2,7 @@
 using ContaCerta.Domain.Users.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContaCerta.Api.Context
+namespace ContaCerta.Api.Infra.Context
 {
     public class ContaCertaContext : DbContext
     {
