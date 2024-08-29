@@ -4,5 +4,6 @@ namespace ContaCerta.Domain.Common.Interfaces
     {
         public T? Find(int Id);
         public T Save(T entity);
+        public void Delete(T entity);
     }
 }

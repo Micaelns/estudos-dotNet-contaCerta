@@ -28,8 +28,14 @@ namespace ContaCerta.Api.Controllers
         {
             try
             {
-                var cost = _findCost.Execute(costId);
-                cost = _updateCost.Execute(cost, title, description, value, paymentDate, active);
+                var initialCost = _findCost.Execute(costId);
+                var cost = _updateCost.Execute(initialCost, title, description, value, paymentDate, active);
+
+                if ( cost == null)
+                {
+                    return NoContent();
+                }
+
                 return Ok(cost);
             }
             catch (Exception e)
@@ -39,14 +45,15 @@ namespace ContaCerta.Api.Controllers
         }
 
         [HttpPost]
-        [Route("{costId}/add-users")]
-        public IActionResult AddUsersCost(FindCost _findCost, FindActiveUserByEmail _findUser, AddUsers _addUsers, [FromRoute] int costId, [FromBody] string[] emailUser)
+        [Route("{costId}/manage-users")]
+        public IActionResult ManageUsersCost(FindCost _findCost, FindActiveUserByEmail _findUser, ManageUsers _manageUsers, [FromRoute] int costId, [FromQuery] string[] emailAdd, [FromQuery] string[] emailRemove)
         {
             try
             {
                 var cost = _findCost.Execute(costId);
-                var users = emailUser.Select(_findUser.Execute).ToArray();
-                _addUsers.Execute(cost, users);
+                var usersToAdd = emailAdd.Select(_findUser.Execute).ToArray();
+                var usersToRemove = emailRemove.Select(_findUser.Execute).ToArray();
+                _manageUsers.Execute(cost, usersToAdd, usersToRemove);
                 return NoContent();
             }
             catch (Exception e)

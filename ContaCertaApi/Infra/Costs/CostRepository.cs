@@ -41,5 +41,10 @@ namespace ContaCerta.Api.Infra.Costs
             _context.SaveChanges();
             return entity;
         }
+
+        public void Delete(Cost entity)
+        {
+            //implementar
+        }
     }
 }

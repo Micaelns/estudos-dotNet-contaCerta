@@ -1,4 +1,5 @@
 ﻿using ContaCerta.Api.Infra.Context;
+using ContaCerta.Domain.Costs.Model;
 using ContaCerta.Domain.Users.Model;
 using ContaCerta.Domain.Users.Repositories.Interfaces;
 
@@ -30,6 +31,10 @@ namespace ContaCerta.Api.Infra.Users
         public User Save(User entity)
         {
             throw new NotImplementedException();
+        }
+        public void Delete(User entity)
+        {
+            //implementar
         }
     }
 }

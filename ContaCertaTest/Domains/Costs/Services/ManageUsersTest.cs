@@ -6,7 +6,7 @@ using Moq;
 
 namespace ContaCerta.Tests.Domain.Costs.Services
 {
-    public class AddUsersTest
+    public class ManageUsersTest
     {
         [Fact]
         public void Execute_ValidDataToAddUsers_ReturnsUsersSuccessfully()
@@ -15,25 +15,11 @@ namespace ContaCerta.Tests.Domain.Costs.Services
             var users = new User[] { new User("valid_email", "valid_password", true) };
             var userCostRepositoryMock = new Mock<IUserCostRepository>();
             userCostRepositoryMock.Setup(x => x.ListUserCostsByCost(It.IsAny<Cost>())).Returns(new UserCost[] { });
-            var addUsers = new AddUsers(userCostRepositoryMock.Object);
+            var addUsers = new ManageUsers(userCostRepositoryMock.Object);
             
-            addUsers.Execute(cost, users);
+            addUsers.Execute(cost, users, []);
             
             userCostRepositoryMock.Verify(x => x.Save(It.IsAny<UserCost>()), Times.Once);
-        }
-
-        [Fact]
-        public void Execute_InvalidDataToAddUsers_ReturnsArgumentException()
-        {
-            var cost = new Cost("valid_title", "valid_description", 10, DateTime.Now.AddDays(5), new User("valid_email", "valid_password", true), true);
-            var users = new User[] { };
-            var userCostRepositoryMock = new Mock<IUserCostRepository>();
-
-            var addUsers = new AddUsers(userCostRepositoryMock.Object);
-
-            Action Act = () => addUsers.Execute(cost, users);
-            var exception = Assert.Throws<ArgumentException>(Act);
-            Assert.Contains("Lista de usuários sem dados", exception.Message);
         }
 
         [Fact]
@@ -47,9 +33,9 @@ namespace ContaCerta.Tests.Domain.Costs.Services
                                             };
             userCostRepositoryMock.Setup(x => x.ListUserCostsByCost(It.IsAny<Cost>())).Returns(listUserCost);
 
-            var addUsers = new AddUsers(userCostRepositoryMock.Object);
+            var addUsers = new ManageUsers(userCostRepositoryMock.Object);
 
-            Action Act = () => addUsers.Execute(cost, users);
+            Action Act = () => addUsers.Execute(cost, users, []);
             var exception = Assert.Throws<ArgumentException>(Act);
             Assert.Contains("Após algum pagamento não é possível adicionar usuários", exception.Message);
         }
@@ -64,9 +50,9 @@ namespace ContaCerta.Tests.Domain.Costs.Services
                                             new UserCost( new User("valid_email", "valid_password", true), cost, 10, payed : false)
                                             };
             userCostRepositoryMock.Setup(x => x.ListUserCostsByCost(It.IsAny<Cost>())).Returns(listUserCost);
-            var addUsers = new AddUsers(userCostRepositoryMock.Object);
+            var addUsers = new ManageUsers(userCostRepositoryMock.Object);
             
-            addUsers.Execute(cost, users);
+            addUsers.Execute(cost, users, []);
             
             userCostRepositoryMock.Verify(x => x.Save(It.IsAny<UserCost>()), Times.Once);
         }
@@ -88,9 +74,9 @@ namespace ContaCerta.Tests.Domain.Costs.Services
             userCostRepositoryMock.Setup(x => x.Save(It.IsAny<UserCost>())).Callback<UserCost>( uc => individualCostSum += uc.Value);
 
             userCostRepositoryMock.Setup(x => x.ListUserCostsByCost(It.IsAny<Cost>())).Returns(listUserCost);
-            var addUsers = new AddUsers(userCostRepositoryMock.Object);
+            var addUsers = new ManageUsers(userCostRepositoryMock.Object);
             
-            addUsers.Execute(cost, users);
+            addUsers.Execute(cost, users, []);
 
             userCostRepositoryMock.Verify(x => x.Save(It.IsAny<UserCost>()), Times.Exactly(3));
             Assert.Equal(totalCostArrecadar, individualCostSum);

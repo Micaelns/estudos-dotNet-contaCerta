@@ -13,9 +13,9 @@ namespace ContaCerta.Api.Infra.Users
         {
             _context = context;
         }
-        public UserCost Find(int Id)
+        public UserCost? Find(int Id)
         {
-            throw new NotImplementedException();
+            return _context.UserCosts.FirstOrDefault(c => c.Id == Id);
         }
 
         public UserCost[] LastUserCostNoPayByUser(User user)
@@ -46,13 +46,15 @@ namespace ContaCerta.Api.Infra.Users
             {
                 _context.Add(entity);
             } else {
-                var entityAtual = _context.UserCosts.Find(entity.Id) ?? throw new ArgumentException("Custo Id => "+ entity.Id + " inválido");
-
-                entityAtual.Value = entity.Value;
-                _context.Update(entityAtual);
+                _context.Update(entity);
             }
             _context.SaveChanges();
             return entity;
+        }
+
+        public void Delete(UserCost entity)
+        {
+            //implementar
         }
     }
 }
