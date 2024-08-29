@@ -13,7 +13,7 @@ namespace ContaCerta.Domain.Costs.Model
             Active = false;
             CreatedAt = null;
             UserRequested = new User();
-            //UserCosts = [];
+ //           UserCosts = [];
         }
 
         public Cost(string title, string? description, float value, DateTime? paymentDate , User userRequested, bool active = true)

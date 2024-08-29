@@ -1,6 +1,7 @@
 ﻿using ContaCerta.Api.Infra.Context;
 using ContaCerta.Domain.Costs.Model;
 using ContaCerta.Domain.Costs.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContaCerta.Api.Infra.Costs
 {
@@ -14,7 +15,7 @@ namespace ContaCerta.Api.Infra.Costs
 
         public Cost? Find(int Id)
         {
-            return _context.Costs.Where(c => c.Id == Id).FirstOrDefault();
+            return _context.Costs.Include(c => c.UserRequested).FirstOrDefault(c => c.Id == Id);
         }
 
         public Cost[] LastCostsCreatedByUserId(int UserId, int LastDays)
@@ -29,7 +30,14 @@ namespace ContaCerta.Api.Infra.Costs
 
         public Cost Save(Cost entity)
         {
-            _context.Add(entity);
+            if (entity.Id <= 0)
+            {
+                _context.Add(entity);
+            }
+            else
+            {
+                _context.Update(entity);
+            }
             _context.SaveChanges();
             return entity;
         }

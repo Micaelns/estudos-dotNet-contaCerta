@@ -22,6 +22,22 @@ namespace ContaCerta.Api.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("{costId}")]
+        public IActionResult UpdateCost(FindCost _findCost, UpdateCosts _updateCost, [FromRoute] int costId, [FromQuery] string? title, [FromQuery] string? description, [FromQuery] float? value, [FromQuery] DateTime? paymentDate, [FromQuery] bool? active)
+        {
+            try
+            {
+                var cost = _findCost.Execute(costId);
+                cost = _updateCost.Execute(cost, title, description, value, paymentDate, active);
+                return Ok(cost);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost]
         [Route("{costId}/add-users")]
         public IActionResult AddUsersCost(FindCost _findCost, FindActiveUserByEmail _findUser, AddUsers _addUsers, [FromRoute] int costId, [FromBody] string[] emailUser)
