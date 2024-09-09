@@ -3,7 +3,7 @@
 namespace ContaCerta.Domain.Users.Model
 {
     public class UserCost
-    {/*
+    {
         public UserCost()
         {
             Id = -1;
@@ -13,7 +13,7 @@ namespace ContaCerta.Domain.Users.Model
             Payed = false;
             Payed_at = null;
         }
-        */
+        
         public UserCost(User user, Cost cost, float value=0, bool payed = false, DateTime? payed_at=null)
         {
             Id = 0;
