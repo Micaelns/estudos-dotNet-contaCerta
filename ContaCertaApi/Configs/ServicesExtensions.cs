@@ -32,7 +32,7 @@ namespace ContaCerta.Api.Configs
             Services.AddTransient<LastCostsCreatedByUser>();
             Services.AddTransient<NextCostsCreatedByUser>();
             Services.AddTransient<ListActivesUsers>();
-
+            //ssss
             return Services;
         }
 
