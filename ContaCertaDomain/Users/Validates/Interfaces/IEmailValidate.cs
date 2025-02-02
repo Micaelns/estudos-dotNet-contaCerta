@@ -1,8 +1,7 @@
 ﻿using ContaCerta.Domain.Common.Interfaces;
 
-namespace ContaCerta.Domain.Users.Validates.Interfaces
+namespace ContaCerta.Domain.Users.Validates.Interfaces;
+
+public interface IEmailValidate : IValidate<string>
 {
-    public interface IEmailValidate : IValidate<string>
-    {
-    }
 }

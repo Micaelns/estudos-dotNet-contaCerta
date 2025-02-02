@@ -24,13 +24,10 @@ namespace ContaCerta.Api.Configs
 
         public static IServiceCollection RegisterServices(this IServiceCollection Services)
         {
-            Services.AddTransient<AddUsers>();
-            Services.AddTransient<CreateCost>();
+            Services.AddScoped<ManagerUsersInCost>();
+            Services.AddTransient<ManagerCost>();
             Services.AddTransient<FindActiveUserByEmail>();
-            Services.AddTransient<FindCost>();
             Services.AddTransient<LastCosts>();
-            Services.AddTransient<LastCostsCreatedByUser>();
-            Services.AddTransient<NextCostsCreatedByUser>();
             Services.AddTransient<ListActivesUsers>();
 
             return Services;

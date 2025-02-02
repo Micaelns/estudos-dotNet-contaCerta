@@ -9,12 +9,12 @@ namespace ContaCerta.Api.Controllers
     public class CostController : ControllerBase
     {
         [HttpPost]
-        public IActionResult CreateCost(CreateCost _createCost, FindActiveUserByEmail _findUser, [FromQuery] string title, [FromQuery] string? description, [FromQuery] float value, [FromQuery] string email, [FromQuery] DateTime? paymentDate, [FromQuery] bool active)
+        public IActionResult CreateCost(ManagerCost _managerCost, FindActiveUserByEmail _findUser, [FromQuery] string title, [FromQuery] string? description, [FromQuery] float value, [FromQuery] string email, [FromQuery] DateTime? paymentDate, [FromQuery] bool active)
         {
             try
             {
                 var LoggedUser = _findUser.Execute(email);
-                var costs = _createCost.Execute(title, description, value, paymentDate, LoggedUser, active);
+                var costs = _managerCost.Create(title, description, value, paymentDate, LoggedUser, active);
                 return Ok(costs);
             } catch (Exception e)
             {
@@ -24,13 +24,13 @@ namespace ContaCerta.Api.Controllers
 
         [HttpPost]
         [Route("{costId}/add-users")]
-        public IActionResult AddUsersCost(FindCost _findCost, FindActiveUserByEmail _findUser, AddUsers _addUsers, [FromRoute] int costId, [FromBody] string[] emailUser)
+        public IActionResult AddUsersCost(ManagerCost _managerCost, FindActiveUserByEmail _findUser, ManagerUsersInCost _addUsers, [FromRoute] int costId, [FromBody] string[] emailUser)
         {
             try
             {
-                var cost = _findCost.Execute(costId);
+                var cost = _managerCost.Find(costId);
                 var users = emailUser.Select(_findUser.Execute).ToArray();
-                _addUsers.Execute(cost, users);
+                _addUsers.AddUsers(users, cost);
                 return NoContent();
             }
             catch (Exception e)
@@ -41,12 +41,12 @@ namespace ContaCerta.Api.Controllers
 
         [HttpGet]
         [Route("last/created")]
-        public IActionResult GetLastCostsCreatedByUser(LastCostsCreatedByUser _lastCosts, FindActiveUserByEmail _findUser, [FromQuery] string email)
+        public IActionResult GetLastCostsCreatedByUser(ManagerCost _lastCosts, FindActiveUserByEmail _findUser, [FromQuery] string email)
         {
             try
             {
                 var LoggedUser = _findUser.Execute(email);
-                var costs = _lastCosts.Execute(LoggedUser);
+                var costs = _lastCosts.LastCostsCreatedByUser(LoggedUser);
                 if (costs.Length == 0)
                     return NoContent();
 
@@ -60,12 +60,12 @@ namespace ContaCerta.Api.Controllers
 
         [HttpGet]
         [Route("next/created")]
-        public IActionResult GetNextCostsCreatedByUser(NextCostsCreatedByUser _nextCosts, FindActiveUserByEmail _findUser, [FromQuery] string email)
+        public IActionResult GetNextCostsCreatedByUser(ManagerCost _nextCosts, FindActiveUserByEmail _findUser, [FromQuery] string email)
         {
             try
             {
                 var LoggedUser = _findUser.Execute(email);
-                var costs = _nextCosts.Execute(LoggedUser);
+                var costs = _nextCosts.NextCostsCreatedByUser(LoggedUser);
                 if (costs.Length == 0)
                     return NoContent();
 

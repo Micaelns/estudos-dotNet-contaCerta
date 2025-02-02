@@ -1,5 +1,4 @@
 ﻿using ContaCerta.Domain.Costs.Model;
-using ContaCerta.Domain.Costs.Repositories.Interfaces;
 using ContaCerta.Domain.Users.Model;
 using ContaCerta.Domain.Users.Repositories.Interfaces;
 using ContaCerta.Domain.Users.Services;

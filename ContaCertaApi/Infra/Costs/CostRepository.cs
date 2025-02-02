@@ -12,6 +12,11 @@ namespace ContaCerta.Api.Infra.Costs
             _context = context;
         }
 
+        public void Delete(int Id)
+        {
+            Console.WriteLine($"Deletado ID: {Id}");
+        }
+
         public Cost? Find(int Id)
         {
             return _context.Costs.Where(c => c.Id == Id).FirstOrDefault();

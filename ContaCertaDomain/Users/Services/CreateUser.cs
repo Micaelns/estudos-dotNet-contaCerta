@@ -26,7 +26,7 @@ namespace ContaCerta.Domain.Users.Services
 
             if (!_passwordValidate.IsValid(password))
             {
-                throw new ArgumentException("Senha inválida: \n - "+string.Join("\n - ", _passwordValidate.Messages));
+                throw new ArgumentException(_passwordValidate.ErrorMessages);
             }
 
             if (_userRepository.FindByEmail(email) != null)

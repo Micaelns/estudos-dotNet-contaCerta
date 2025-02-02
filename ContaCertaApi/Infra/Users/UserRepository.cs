@@ -12,6 +12,11 @@ namespace ContaCerta.Api.Infra.Users
             _context = context;
         }
 
+        public void Delete(int Id)
+        {
+            Console.WriteLine($"Deletado ID: {Id}");
+        }
+
         public User Find(int Id)
         {
             throw new NotImplementedException();
