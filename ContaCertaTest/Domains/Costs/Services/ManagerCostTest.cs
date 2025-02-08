@@ -6,7 +6,6 @@ using ContaCerta.Domain.Costs.Validates.Interfaces;
 using ContaCerta.Domain.Users;
 using ContaCerta.Domain.Users.Model;
 using Moq;
-using System;
 
 namespace ContaCerta.Tests.Domain.Costs.Services;
 
@@ -19,10 +18,10 @@ public class ManagerCostTest
         string descriptionSended = "valid_description";
         float valueSended = 1;
         DateTime paymentDateSended = DateTime.Now.AddDays(5);
-        User userRequestedSended = new User("valid_email", "valid_password", true);
+        User userRequestedSended = new() { Active = true };
         bool activeSended = true;
         var costRepositoryMock = new Mock<ICostRepository>();
-        costRepositoryMock.Setup(x => x.Save(It.IsAny<Cost>())).Returns(new Cost(titleSended, descriptionSended, valueSended, paymentDateSended, userRequestedSended, activeSended));
+        costRepositoryMock.Setup(x => x.Save(It.IsAny<Cost>())).Returns(new Cost() { Title = titleSended, Description = descriptionSended, Value = valueSended, PaymentDate = paymentDateSended, UserRequested = userRequestedSended, Active = activeSended });
         var costValidateMock = new Mock<ICostValidate>();
         costValidateMock.Setup(x => x.IsValid(It.IsAny<Cost>())).Returns(true);
 
@@ -38,20 +37,13 @@ public class ManagerCostTest
     [Fact]
     public void Create_InvalidDataToCreateCost_ReturnsArgumentException()
     {
-        string titleSended = "invalid_title";
-        string descriptionSended = "valid_description";
-        float valueSended = 1;
-        DateTime paymentDateSended = DateTime.Now.AddDays(5);
-        User userRequestedSended = new User("valid_email", "valid_password", true);
-        bool activeSended = true;
         var costRepositoryMock = new Mock<ICostRepository>();
-        costRepositoryMock.Setup(x => x.Save(It.IsAny<Cost>())).Returns(new Cost(titleSended, descriptionSended, valueSended, paymentDateSended, userRequestedSended, activeSended));
         var costValidateMock = new Mock<ICostValidate>();
         costValidateMock.Setup(x => x.IsValid(It.IsAny<Cost>())).Returns(false);
         costValidateMock.SetupGet(v => v.ErrorMessages).Returns("Mensagens Erro");
 
         var createCost = new ManagerCost(costRepositoryMock.Object, costValidateMock.Object);
-        Action Act = () => createCost.Create(titleSended, descriptionSended, valueSended, paymentDateSended, userRequestedSended, activeSended);
+        Action Act = () => createCost.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<float>(), It.IsAny<DateTime>(), It.IsAny<User>(), It.IsAny<bool>());
 
         var exception = Assert.Throws<ArgumentException>(Act);
         Assert.NotEmpty(exception.Message);
@@ -60,19 +52,13 @@ public class ManagerCostTest
     [Fact]
     public void Create_InvalidCostRepository_ReturnsException()
     {
-        string titleSended = "valid_title";
-        string descriptionSended = "valid_description";
-        float valueSended = 1;
-        DateTime paymentDateSended = DateTime.Now.AddDays(5);
-        User userRequestedSended = new User("valid_email", "valid_password", true);
-        bool activeSended = true;
         var costRepositoryMock = new Mock<ICostRepository>();
         costRepositoryMock.Setup(x => x.Save(It.IsAny<Cost>())).Throws(new Exception("Simulando um erro no CostRepository"));
         var costValidateMock = new Mock<ICostValidate>();
         costValidateMock.Setup(x => x.IsValid(It.IsAny<Cost>())).Returns(true);
 
         var createCost = new ManagerCost(costRepositoryMock.Object, costValidateMock.Object);
-        Action Act = () => createCost.Create(titleSended, descriptionSended, valueSended, paymentDateSended, userRequestedSended, activeSended);
+        Action Act = () => createCost.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<float>(), It.IsAny<DateTime>(), It.IsAny<User>(), It.IsAny<bool>());
 
         var exception = Assert.Throws<Exception>(Act);
         Assert.NotEmpty(exception.Message);

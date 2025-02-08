@@ -20,7 +20,7 @@ public class CostValidate : ICostValidate
             return false;
         }
 
-        if (cost.UserRequested == null)
+        if (cost.UserRequested  is null || cost.UserRequested.Active is false)
         {
             _messages.Add(MessageCost.UserCanNotInvalid);
         }

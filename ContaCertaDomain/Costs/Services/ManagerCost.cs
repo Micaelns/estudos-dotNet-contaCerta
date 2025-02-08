@@ -19,7 +19,15 @@ public class ManagerCost
 
     public Cost Create(string title, string? description, float value, DateTime? paymentDate, User userRequested, bool active)
     {
-        var cost = new Cost(title, description, value, paymentDate, userRequested, active);
+        var cost = new Cost()
+        {
+            Title = title,
+            Description = description,
+            Value = value,
+            PaymentDate = paymentDate,
+            UserRequested = userRequested,
+            Active = active
+        };
         if (!_costValidate.IsValid(cost))
         {
             throw new ArgumentException(_costValidate.ErrorMessages);
@@ -74,14 +82,14 @@ public class ManagerCost
         }
         catch (Exception e)
         {
-            var preparedMessage = MessageCost.ErrorLastDaysQuery.Replace("{0}", lastDays.ToString()).Replace("{1}", user.Email);
+            var preparedMessage = MessageCost.ErrorLastDaysQueryByUser.Replace("{0}", lastDays.ToString()).Replace("{1}", user.Email);
             throw new Exception(preparedMessage+" \n - " + e.Message);
         }
     }
 
     public Cost[] NextCostsCreatedByUser(User user)
     {
-        if (user.Active == false)
+        if (user.Active is false)
         {
             throw new ArgumentException(MessageUser.InvalidUser);
         }
@@ -92,7 +100,7 @@ public class ManagerCost
         }
         catch (Exception e)
         {
-            var preparedMessage = MessageCost.ErrorNextDaysQuery.Replace("{0}", user.Email);
+            var preparedMessage = MessageCost.ErrorNextDaysQueryByUser.Replace("{0}", user.Email);
             throw new Exception(preparedMessage + " \n - " + e.Message);
         }
     }

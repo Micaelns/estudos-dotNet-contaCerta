@@ -11,13 +11,15 @@ public class CostValidateTest
     public void IsValid_ValidDataToCreateCost_ReturnTrue()
     {
         string titleSended = "valid_title";
-        string descriptionSended = "valid_description";
         float valueSended = 1;
-        DateTime paymentDateSended = DateTime.Now.AddDays(5);
-        User userRequestedSended = new("valid_email", "valid_password", true);
-        bool activeSended = true;
-        var costValid = new Cost(titleSended, descriptionSended, valueSended, paymentDateSended, userRequestedSended, activeSended);
-
+        User userRequestedSended = new() { Active = true };
+        var costValid = new Cost()
+        {
+            Title = titleSended,
+            Value = valueSended,
+            UserRequested = userRequestedSended
+        };
+        
         var costValidate = new CostValidate();
         var isValid = costValidate.IsValid(costValid);
 
@@ -30,13 +32,14 @@ public class CostValidateTest
     [InlineData("    ")]
     public void IsValid_InvalidTitleOnDataToCreateCost_ReturnFalse(string invalidTitle)
     {
-        string descriptionSended = "valid_description";
         float valueSended = 1;
-        DateTime paymentDateSended = DateTime.Now.AddDays(5);
-        User userRequestedSended = new User("valid_email", "valid_password", true);
-        bool activeSended = true;
-        var costValid = new Cost(invalidTitle, descriptionSended, valueSended, paymentDateSended, userRequestedSended, activeSended);
-
+        User userRequestedSended = new() { Active = true };
+        var costValid = new Cost()
+        {
+            Title = invalidTitle,
+            Value = valueSended,
+            UserRequested = userRequestedSended
+        };
         var costValidate = new CostValidate();
         var isValid = costValidate.IsValid(costValid);
 
@@ -48,13 +51,14 @@ public class CostValidateTest
     public void IsValid_InvalidUserOnDataToCreateCost_ReturnFalse()
     {
         string titleSended = "valid_title";
-        string descriptionSended = "valid_description";
         float valueSended = 1;
-        DateTime paymentDateSended = DateTime.Now.AddDays(5);
-        User userRequestedSended = null;
-        bool activeSended = true;
-        var costValid = new Cost(titleSended, descriptionSended, valueSended, paymentDateSended, userRequestedSended, activeSended);
-
+        User userRequestedSended = new() { Active = false };
+        var costValid = new Cost()
+        {
+            Title = titleSended,
+            Value = valueSended,
+            UserRequested = userRequestedSended
+        };
         var costValidate = new CostValidate();
         var isValid = costValidate.IsValid(costValid);
 
@@ -72,11 +76,13 @@ public class CostValidateTest
     public void IsValid_InvalidValueOnDataToCreateCost_ReturnFalse(float invalidValue)
     {
         string titleSended = "valid_title";
-        string descriptionSended = "valid_description";
-        DateTime paymentDateSended = DateTime.Now.AddDays(5);
-        User userRequestedSended = new User("valid_email", "valid_password", true);
-        bool activeSended = true;
-        var costValid = new Cost(titleSended, descriptionSended, invalidValue, paymentDateSended, userRequestedSended, activeSended);
+        User userRequestedSended = new() { Active = true };
+        var costValid = new Cost()
+        {
+            Title = titleSended,
+            Value = invalidValue,
+            UserRequested = userRequestedSended
+        };
 
         var costValidate = new CostValidate();
         var isValid = costValidate.IsValid(costValid);

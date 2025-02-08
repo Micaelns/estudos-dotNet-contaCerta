@@ -110,7 +110,7 @@ public class ManagerUsersInCost
         {
             if (!userCostsSaved.Any(userCost => userCost.User.Id == user.Id))
             {
-                var userCost = new UserCost(user, cost, individualCost);
+                var userCost = new UserCost() { User = user, Cost = cost, Value = individualCost };
                 _userCostRepository.Save(userCost);
                 someSaved = true;
             }

@@ -18,7 +18,7 @@ public class EmailValidate: IEmailValidate
         bool isValid = Regex.IsMatch(email, emailPattern);
 
         if(!isValid) {
-            _messages.Add("E-mail inválido");
+            _messages.Add(MessageUser.InvalidEmail);
             return false;
         }
 

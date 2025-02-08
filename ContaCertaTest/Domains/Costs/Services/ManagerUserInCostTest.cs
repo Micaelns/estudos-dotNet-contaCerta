@@ -5,7 +5,7 @@ using ContaCerta.Domain.Users.Model;
 using ContaCerta.Domain.Users.Repositories.Interfaces;
 using Moq;
 
-namespace ContaCerta.Test.Domains.Costs.Services;
+namespace ContaCerta.Tests.Domain.Costs.Services;
 
 public class ManagerUserInCostTest
 {
@@ -164,7 +164,7 @@ public class ManagerUserInCostTest
     public void AddUsers_withUsersAlreadySaved_ReturnWithoutAdd()
     {
         var validCost = new Cost() { Active = true };
-        User[] usersToAdd = [new() { Id = 10 }];
+        User[] usersToAdd = [new() { Id = 10 } ];
         var userCost1 = new UserCost() { User = new() { Id = 10 } };
         var userCost2 = new UserCost() { User = new() { Id = 20 } };
         var listUserCost = new UserCost[] { userCost1, userCost2 };

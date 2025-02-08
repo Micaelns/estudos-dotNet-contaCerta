@@ -16,28 +16,29 @@ public class PasswordValidate: IPasswordValidate
 
         if (string.IsNullOrWhiteSpace(password))
         {
-            _messages.Add("A senha não pode ser vazia.");
+            _messages.Add(MessageUser.InvalidPasswordEmpty);
             return false;
         }
 
         if (password.Length < MinLength)
         {
-            _messages.Add("A senha deve ter mais de "+MinLength+" caracteres.");
+            var preparedMessage = MessageUser.InvalidPasswordSort.Replace("{0}", MinLength.ToString());
+            _messages.Add(preparedMessage);
         }
 
         if (!password.Any(char.IsLower))
         {
-            _messages.Add("A senha deve ter pelo menos uma letra minúscula.");
+            _messages.Add(MessageUser.InvalidPasswordNoLowerCase);
         }
 
         if (!password.Any(char.IsUpper))
         {
-            _messages.Add("A senha deve ter pelo menos uma letra maiúscula.");
+            _messages.Add(MessageUser.InvalidPasswordNoUpperCase);
         }
 
         if (!password.Any(char.IsNumber))
         {
-            _messages.Add("A senha deve ter pelo menos um número.");
+            _messages.Add(MessageUser.InvalidPasswordNoNumbers);
         }
 
         return _messages.Count == 0;
