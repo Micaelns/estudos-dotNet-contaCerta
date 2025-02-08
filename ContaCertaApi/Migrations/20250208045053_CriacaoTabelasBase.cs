@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ContaCerta.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class CriacaoTabelasUsersECosts : Migration
+    public partial class CriacaoTabelasBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,7 +48,8 @@ namespace ContaCerta.Api.Migrations
                         name: "FK_Costs_Users_UserRequestedId",
                         column: x => x.UserRequestedId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,8 +61,8 @@ namespace ContaCerta.Api.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CostId = table.Column<int>(type: "int", nullable: false),
                     Value = table.Column<float>(type: "real", nullable: false),
-                    Payed = table.Column<bool>(type: "bit", nullable: false),
-                    Payed_at = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Paid = table.Column<bool>(type: "bit", nullable: false),
+                    Paid_at = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -69,12 +71,14 @@ namespace ContaCerta.Api.Migrations
                         name: "FK_UserCosts_Costs_CostId",
                         column: x => x.CostId,
                         principalTable: "Costs",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_UserCosts_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

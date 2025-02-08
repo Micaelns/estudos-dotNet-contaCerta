@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContaCerta.Api.Migrations
 {
     [DbContext(typeof(ContaCertaContext))]
-    [Migration("20240216044450_CriacaoTabelasUsersECosts")]
-    partial class CriacaoTabelasUsersECosts
+    [Migration("20250208045053_CriacaoTabelasBase")]
+    partial class CriacaoTabelasBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,10 +100,10 @@ namespace ContaCerta.Api.Migrations
                     b.Property<int>("CostId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Payed")
+                    b.Property<bool>("Paid")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("Payed_at")
+                    b.Property<DateTime?>("Paid_at")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
@@ -135,13 +135,13 @@ namespace ContaCerta.Api.Migrations
             modelBuilder.Entity("ContaCerta.Domain.Users.Model.UserCost", b =>
                 {
                     b.HasOne("ContaCerta.Domain.Costs.Model.Cost", "Cost")
-                        .WithMany("UserCosts")
+                        .WithMany()
                         .HasForeignKey("CostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ContaCerta.Domain.Users.Model.User", "User")
-                        .WithMany("UserCosts")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -149,16 +149,6 @@ namespace ContaCerta.Api.Migrations
                     b.Navigation("Cost");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ContaCerta.Domain.Costs.Model.Cost", b =>
-                {
-                    b.Navigation("UserCosts");
-                });
-
-            modelBuilder.Entity("ContaCerta.Domain.Users.Model.User", b =>
-                {
-                    b.Navigation("UserCosts");
                 });
 #pragma warning restore 612, 618
         }

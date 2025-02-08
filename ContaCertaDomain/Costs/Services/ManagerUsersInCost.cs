@@ -26,7 +26,7 @@ public class ManagerUsersInCost
             return;
         }
 
-        if (userCostsSaved.Any(userCost => userCost.Payed))
+        if (userCostsSaved.Any(userCost => userCost.Paid))
         {
             throw new Exception(MessageCost.ImpossibleManagerUsersIfAnyPaid);
         }
@@ -62,7 +62,7 @@ public class ManagerUsersInCost
 
         UserCost[] userCostsSaved = _userCostRepository.ListUserCostsByCost(cost);
 
-        if (userCostsSaved.Any(userCost => userCost.Payed))
+        if (userCostsSaved.Any(userCost => userCost.Paid))
         {
             throw new Exception(MessageCost.ImpossibleManagerUsersIfAnyPaid);
         }

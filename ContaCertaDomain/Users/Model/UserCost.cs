@@ -8,7 +8,7 @@ public class UserCost
     public User User { get; set; } = new();
     public Cost Cost { get; set; } = new();
     public float Value { get; set; } = 0;
-    public bool Payed { get; set; } = false;
-    public DateTime? Payed_at { get; set; } = null;
+    public bool Paid { get; set; } = false;
+    public DateTime? Paid_at { get; set; } = null;
     
 }

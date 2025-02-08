@@ -24,10 +24,10 @@ namespace ContaCerta.Api.Configs
 
         public static IServiceCollection RegisterServices(this IServiceCollection Services)
         {
-            Services.AddSingleton<ManagerCost>();
-            Services.AddSingleton<ManagerUsersInCost>();
-            Services.AddSingleton<ManagerUser>();
-            Services.AddSingleton<ListCostsUser>();
+            Services.AddTransient<ManagerCost>();
+            Services.AddTransient<ManagerUsersInCost>();
+            Services.AddTransient<ManagerUser>();
+            Services.AddTransient<ListCostsUser>();
 
             return Services;
         }
@@ -38,6 +38,7 @@ namespace ContaCerta.Api.Configs
             Services.AddTransient<IUserRepository, UserRepository>();
             Services.AddTransient<ICostValidate, CostValidate>();
             Services.AddTransient<IEmailValidate, EmailValidate>();
+            Services.AddTransient<IPasswordValidate, PasswordValidate>();
             Services.AddTransient<IUserCostRepository, UserCostRepository>();
             return Services;
         }

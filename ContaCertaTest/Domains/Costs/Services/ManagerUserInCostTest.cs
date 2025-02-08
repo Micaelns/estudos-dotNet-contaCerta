@@ -57,7 +57,7 @@ public class ManagerUserInCostTest
     {
         var validCost = new Cost() { Active = true };
         User[] usersToRemove = [new()];
-        var userCostPaid = new UserCost() { User = new User(), Payed = true };
+        var userCostPaid = new UserCost() { User = new User(), Paid = true };
         var listUserCost = new UserCost[] { new(), userCostPaid };
         
         var userCostRepositoryMock = new Mock<IUserCostRepository>();
@@ -147,7 +147,7 @@ public class ManagerUserInCostTest
     {
         var validCost = new Cost() { Active = true };
         User[] usersToAdd = [new()];
-        var userCostPaid = new UserCost() { User = new User(), Payed = true };
+        var userCostPaid = new UserCost() { User = new User(), Paid = true };
         var listUserCost = new UserCost[] { new(), userCostPaid };
 
         var userCostRepositoryMock = new Mock<IUserCostRepository>();
