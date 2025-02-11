@@ -1,8 +1,8 @@
-﻿using ContaCerta.Api.Infra.Context;
-using ContaCerta.Domain.Users.Model;
+﻿using ContaCerta.Domain.Users.Model;
 using ContaCerta.Domain.Users.Repositories.Interfaces;
+using ContaCerta.Infra.Context;
 
-namespace ContaCerta.Api.Infra.Users;
+namespace ContaCerta.Infra.Repositories.Users;
 
 public class UserRepository : IUserRepository
 {

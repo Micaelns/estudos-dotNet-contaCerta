@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCerta.Api", "ContaCert
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCerta.Domain", "ContaCertaDomain\ContaCerta.Domain.csproj", "{AB6ED1C6-C26A-4E00-B840-2F55A802CAFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCerta.Infra", "ContaCertaInfra\ContaCerta.Infra.csproj", "{80118A8F-38A8-49DA-AFD7-798994EB0A50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AB6ED1C6-C26A-4E00-B840-2F55A802CAFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB6ED1C6-C26A-4E00-B840-2F55A802CAFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB6ED1C6-C26A-4E00-B840-2F55A802CAFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80118A8F-38A8-49DA-AFD7-798994EB0A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80118A8F-38A8-49DA-AFD7-798994EB0A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80118A8F-38A8-49DA-AFD7-798994EB0A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80118A8F-38A8-49DA-AFD7-798994EB0A50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

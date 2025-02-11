@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ContaCerta.Api.Migrations
+namespace ContaCerta.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class CriacaoTabelasBase : Migration
+    public partial class CriadoTabelasBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

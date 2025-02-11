@@ -1,4 +1,5 @@
 using ContaCerta.Api.Configs;
+using ContaCerta.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
