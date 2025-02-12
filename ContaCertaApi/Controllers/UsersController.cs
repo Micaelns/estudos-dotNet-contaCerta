@@ -14,6 +14,21 @@ public class UsersController : ControllerBase
         return Ok(_managerUser.ListActives());
     }
 
+    [HttpPost]
+    [Route("")]
+    public IActionResult Create(ManagerUser _managerUser, [FromQuery] string email, [FromQuery] string password)
+    {
+        try
+        {
+            var data = _managerUser.Create(email, password);
+            return Ok(data);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpGet]
     [Route("last/costs")]
     public IActionResult GetLastCostsByUser(ManagerUser _managerUser, ListCostsUser _lastCosts, [FromQuery] string email)
