@@ -14,9 +14,10 @@ public class UserCostRepository : IUserCostRepository
         _context = context;
     }
 
-    public void Delete(int Id)
+    public async Task Delete(int Id)
     {
-        Console.WriteLine($"Deletado ID: {Id}");
+        await _context.UserCosts.Where(c => c.Id == Id).ExecuteDeleteAsync();
+        await _context.SaveChangesAsync();
     }
 
     public UserCost Find(int Id)
@@ -38,7 +39,9 @@ public class UserCostRepository : IUserCostRepository
 
     public UserCost[] ListUserCostsByCost(Cost cost)
     {
-        return _context.UserCosts.Where(c => c.Cost.Id == cost.Id).ToArray();
+        return _context.UserCosts.Where(c => c.Cost.Id == cost.Id)
+            .Include(uc => uc.User)
+            .ToArray();
     }
 
     public UserCost[] NextUserCostByUser(User user)

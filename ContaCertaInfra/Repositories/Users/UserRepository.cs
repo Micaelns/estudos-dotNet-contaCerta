@@ -12,9 +12,10 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public void Delete(int Id)
+    public async Task Delete(int Id)
     {
         Console.WriteLine($"Deletado ID: {Id}");
+        await Task.CompletedTask;
     }
 
     public User? Find(int Id)

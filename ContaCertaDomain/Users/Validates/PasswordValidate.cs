@@ -6,7 +6,7 @@ public class PasswordValidate: IPasswordValidate
 {
     private List<string> _messages = new();
     public string ErrorMessages {
-        get => _messages.Count == 0 ? string.Empty : "\n - " + string.Join("\n - ", _messages);
+        get => _messages.Count == 0 ? string.Empty : " - " + string.Join(" - ", _messages);
     }
     public int MinLength { get => 8; }
 

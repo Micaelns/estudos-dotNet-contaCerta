@@ -42,7 +42,7 @@ public class ManagerUserTest
     }
 
     [Fact]
-    public void FindActiveByEmail_NoExistsUser_ReturnsException()
+    public void FindActiveByEmail_NoExistsUser_ReturnsArgumentException()
     {
         var emailValidateMock = new Mock<IEmailValidate>();
         emailValidateMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
@@ -52,7 +52,7 @@ public class ManagerUserTest
         var CreateUser = new ManagerUser(userRepositoryMock.Object, emailValidateMock.Object, passwordValidateMock.Object);
         Action Act = () => CreateUser.FindActiveByEmail(It.IsAny<string>());
 
-        var exception = Assert.Throws<Exception>(Act);
+        var exception = Assert.Throws<ArgumentException>(Act);
         Assert.Contains(MessageUser.InvalidUser, exception.Message);
     }
 

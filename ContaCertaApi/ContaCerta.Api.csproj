@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ContaCertaAplication\ContaCerta.Aplication.csproj" />
     <ProjectReference Include="..\ContaCertaDomain\ContaCerta.Domain.csproj" />
     <ProjectReference Include="..\ContaCertaInfra\ContaCerta.Infra.csproj" />
   </ItemGroup>

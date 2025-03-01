@@ -36,7 +36,7 @@ public class ManagerUser
 
         if ( user is null || !user.Active)
         {
-            throw new Exception(MessageUser.InvalidUser);
+            throw new ArgumentException(MessageUser.InvalidUser);
         }
 
         return user;

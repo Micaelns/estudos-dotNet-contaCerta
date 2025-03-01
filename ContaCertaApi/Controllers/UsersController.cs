@@ -1,50 +1,41 @@
-﻿using ContaCerta.Domain.Users.Services;
+﻿using ContaCerta.Aplication.Users;
+using ContaCerta.Aplication.Users.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContaCerta.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UsersController : ControllerBase
+public class UsersController : HomeController
 {
+    private readonly UserApp _userApp;
+
+    public UsersController(UserApp userApp)
+    {
+        _userApp = userApp;
+    }
+
     [HttpGet]
     [Route("actives")]
-    public IActionResult Index(ManagerUser _managerUser)
-    { 
-        return Ok(_managerUser.ListActives());
+    public IActionResult Index()
+    {
+        var data = _userApp.ListActives();
+        return PrepareResult(data);
     }
 
     [HttpPost]
     [Route("")]
-    public IActionResult Create(ManagerUser _managerUser, [FromQuery] string email, [FromQuery] string password)
+    public IActionResult Create(UserCreateRequest request)
     {
-        try
-        {
-            var data = _managerUser.Create(email, password);
-            return Ok(data);
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
+        var data = _userApp.Create(request);
+        return PrepareResult(data);
     }
 
     [HttpGet]
     [Route("last/costs")]
-    public IActionResult GetLastCostsByUser(ManagerUser _managerUser, ListCostsUser _lastCosts, [FromQuery] string email)
-    {   
-        try
-        {
-            var LoggedUser = _managerUser.FindActiveByEmail(email);
-            var costs = _lastCosts.ListCostsLastDays(LoggedUser);
-            if (costs.Length == 0)
-                return NoContent();
-
-            return Ok(costs);
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
+    public IActionResult GetLastCostsByUser([FromQuery] string email)
+    {
+        var data = _userApp.GetLastCostsByUser(email);
+        return PrepareResult(data);
     }
 }

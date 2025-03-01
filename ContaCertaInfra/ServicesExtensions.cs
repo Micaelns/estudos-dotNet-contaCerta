@@ -1,4 +1,6 @@
-﻿using ContaCerta.Domain.Costs.Repositories.Interfaces;
+﻿using ContaCerta.Aplication.Costs;
+using ContaCerta.Aplication.Users;
+using ContaCerta.Domain.Costs.Repositories.Interfaces;
 using ContaCerta.Domain.Costs.Services;
 using ContaCerta.Domain.Costs.Validates;
 using ContaCerta.Domain.Costs.Validates.Interfaces;
@@ -21,6 +23,9 @@ public static class ServicesExtensions
         Services.AddTransient<ManagerUsersInCost>();
         Services.AddTransient<ManagerUser>();
         Services.AddTransient<ListCostsUser>();
+
+        Services.AddTransient<UserApp>();
+        Services.AddTransient<CostApp>();
 
         return Services;
     }

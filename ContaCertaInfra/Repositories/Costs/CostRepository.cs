@@ -12,9 +12,10 @@ public class CostRepository : ICostRepository
         _context = context;
     }
 
-    public void Delete(int Id)
+    public async Task Delete(int Id)
     {
         Console.WriteLine($"Deletado ID: {Id}");
+        await Task.CompletedTask;
     }
 
     public Cost? Find(int Id)

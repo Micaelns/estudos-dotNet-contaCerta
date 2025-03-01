@@ -5,9 +5,9 @@ namespace ContaCerta.Domain.Users.Validates;
 
 public class EmailValidate: IEmailValidate
 {
-    private List<string> _messages = new List<string>();
+    private List<string> _messages = new();
     public string ErrorMessages {
-        get => _messages.Count == 0 ? string.Empty : "\n - " + string.Join("\n - ", _messages);
+        get => _messages.Count == 0 ? string.Empty : " - " + string.Join(" - ", _messages);
     }
 
     public bool IsValid(string email)
