@@ -1,8 +1,7 @@
-namespace ContaCerta.Domain.Common.Interfaces
+namespace ContaCerta.Domain.Common.Interfaces;
+
+public interface IValidate<T>
 {
-    public interface IValidate<T>
-    {
-        IReadOnlyList<string> Messages { get; }
-        public bool IsValid(T element);
-    }
+    public string ErrorMessages { get; }
+    public bool IsValid(T element);
 }

@@ -1,36 +1,41 @@
-﻿using ContaCerta.Domain.Users.Services;
+﻿using ContaCerta.Aplication.Users;
+using ContaCerta.Aplication.Users.Requests;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ContaCerta.Api.Controllers
-{ 
-    [ApiController]
-    [Route("[controller]")]
-    public class UsersController : ControllerBase
+namespace ContaCerta.Api.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class UsersController : HomeController
+{
+    private readonly UserApp _userApp;
+
+    public UsersController(UserApp userApp)
     {
-        [HttpGet]
-        [Route("actives")]
-        public IActionResult Index(ListActivesUsers _listActivesUsers)
-        { 
-            return Ok(_listActivesUsers.Execute());
-        }
+        _userApp = userApp;
+    }
 
-        [HttpGet]
-        [Route("last/costs")]
-        public IActionResult GetLastCostsByUser(FindActiveUserByEmail _findUser, LastCosts _lastCosts, [FromQuery] string email)
-        {   
-            try
-            {
-                var LoggedUser = _findUser.Execute(email);
-                var costs = _lastCosts.Execute(LoggedUser);
-                if (costs.Length == 0)
-                    return NoContent();
+    [HttpGet]
+    [Route("actives")]
+    public IActionResult Index()
+    {
+        var data = _userApp.ListActives();
+        return PrepareResult(data);
+    }
 
-                return Ok(costs);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+    [HttpPost]
+    [Route("")]
+    public IActionResult Create(UserCreateRequest request)
+    {
+        var data = _userApp.Create(request);
+        return PrepareResult(data);
+    }
+
+    [HttpGet]
+    [Route("last/costs")]
+    public IActionResult GetLastCostsByUser([FromQuery] string email)
+    {
+        var data = _userApp.GetLastCostsByUser(email);
+        return PrepareResult(data);
     }
 }

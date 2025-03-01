@@ -1,4 +1,5 @@
 using ContaCerta.Api.Configs;
+using ContaCerta.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole();
+    logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning); // Ignora logs de consulta
+});
 
 var app = builder.Build();
 

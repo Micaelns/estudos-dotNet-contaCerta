@@ -1,44 +1,46 @@
 using ContaCerta.Domain.Users.Validates.Interfaces;
 
-namespace ContaCerta.Domain.Users.Validates
+namespace ContaCerta.Domain.Users.Validates;
+
+public class PasswordValidate: IPasswordValidate
 {
-    public class PasswordValidate: IPasswordValidate
+    private List<string> _messages = new();
+    public string ErrorMessages {
+        get => _messages.Count == 0 ? string.Empty : " - " + string.Join(" - ", _messages);
+    }
+    public int MinLength { get => 8; }
+
+    public bool IsValid(string password)
     {
-        private List<string> _messages = new List<string>();
-        public IReadOnlyList<string> Messages => _messages.AsReadOnly();
+        _messages.Clear();
 
-        public int MinLength { get => 8; }
-        public bool IsValid(string password)
+        if (string.IsNullOrWhiteSpace(password))
         {
-            _messages.Clear();
-
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                _messages.Add("A senha não pode ser vazia.");
-                return false;
-            }
-
-            if (password.Length < MinLength)
-            {
-                _messages.Add("A senha deve ter mais de "+MinLength+" caracteres.");
-            }
-
-            if (!password.Any(char.IsLower))
-            {
-                _messages.Add("A senha deve ter pelo menos uma letra minúscula.");
-            }
-
-            if (!password.Any(char.IsUpper))
-            {
-                _messages.Add("A senha deve ter pelo menos uma letra maiúscula.");
-            }
-
-            if (!password.Any(char.IsNumber))
-            {
-                _messages.Add("A senha deve ter pelo menos um número.");
-            }
-
-            return Messages.Count == 0;
+            _messages.Add(MessageUser.InvalidPasswordEmpty);
+            return false;
         }
+
+        if (password.Length < MinLength)
+        {
+            var preparedMessage = MessageUser.InvalidPasswordSort.Replace("{0}", MinLength.ToString());
+            _messages.Add(preparedMessage);
+        }
+
+        if (!password.Any(char.IsLower))
+        {
+            _messages.Add(MessageUser.InvalidPasswordNoLowerCase);
+        }
+
+        if (!password.Any(char.IsUpper))
+        {
+            _messages.Add(MessageUser.InvalidPasswordNoUpperCase);
+        }
+
+        if (!password.Any(char.IsNumber))
+        {
+            _messages.Add(MessageUser.InvalidPasswordNoNumbers);
+        }
+
+        return _messages.Count == 0;
     }
 }
