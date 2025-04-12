@@ -4,6 +4,7 @@ using ContaCerta.Infra.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContaCerta.Infra.Migrations
 {
     [DbContext(typeof(ContaCertaContext))]
-    partial class ContaCertaContextModelSnapshot : ModelSnapshot
+    [Migration("20250412034902_InicialMigration")]
+    partial class InicialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,7 +95,7 @@ namespace ContaCerta.Infra.Migrations
                     b.Property<DateTimeOffset?>("LastAccess")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("NickName")
+                    b.Property<string>("Nickname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

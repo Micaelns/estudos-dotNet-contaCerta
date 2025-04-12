@@ -1,11 +1,14 @@
+using ContaCerta.Domain.Common;
+
 namespace ContaCerta.Domain.Users.Model;
 
-public class User
+public class User : BaseModel
 {
-    public int Id { get; set; } = 0;
+    public string NickName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
+    public bool IsPublicEmail { get; set; } = true;
     public string Password { get; set; } = string.Empty;
-    public DateTimeOffset? LastAccess { get; set; } = DateTimeOffset.Now;
+    public DateTimeOffset? LastAccess { get; set; } = null;
     public bool Active { get; set; } = false;
     //public List<UserCost> UserCosts { get; set; }
 

@@ -83,7 +83,7 @@ public class ManagerUserTest
         passwordValidateMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
 
         var CreateUser = new ManagerUser(userRepositoryMock.Object, emailValidateMock.Object, passwordValidateMock.Object);
-        var user = CreateUser.Create(It.IsAny<string>(), It.IsAny<string>());
+        var user = CreateUser.Create("asda@ssss.sss", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>());
 
         Assert.IsType<User>(user);
         Assert.NotNull(user);
@@ -100,7 +100,7 @@ public class ManagerUserTest
         passwordValidateMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
 
         var CreateUser = new ManagerUser(userRepositoryMock.Object, emailValidateMock.Object, passwordValidateMock.Object);
-        Action Act = () => CreateUser.Create(It.IsAny<string>(), It.IsAny<string>());
+        Action Act = () => CreateUser.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>());
 
         var exception = Assert.Throws<ArgumentException>(Act);
         Assert.Contains(MessageUser.UserExists, exception.Message);
@@ -117,7 +117,7 @@ public class ManagerUserTest
         passwordValidateMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
 
         var CreateUser = new ManagerUser(userRepositoryMock.Object, emailValidateMock.Object, passwordValidateMock.Object);
-        Action Act = () => CreateUser.Create(It.IsAny<string>(), It.IsAny<string>());
+        Action Act = () => CreateUser.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>());
 
         var exception = Assert.Throws<ArgumentException>(Act);
         Assert.NotEmpty(exception.Message);
@@ -134,7 +134,7 @@ public class ManagerUserTest
         passwordValidateMock.SetupGet(v => v.ErrorMessages).Returns(It.IsAny<string>());
 
         var CreateUser = new ManagerUser(userRepositoryMock.Object, emailValidateMock.Object, passwordValidateMock.Object);
-        Action Act = () => CreateUser.Create(It.IsAny<string>(), It.IsAny<string>());
+        Action Act = () => CreateUser.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>());
 
         var exception = Assert.Throws<ArgumentException>(Act);
         Assert.NotEmpty(exception.Message);
@@ -151,7 +151,7 @@ public class ManagerUserTest
         passwordValidateMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
 
         var createUser = new ManagerUser(userRepositoryMock.Object, emailValidateMock.Object, passwordValidateMock.Object);
-        Action Act = () => createUser.Create(It.IsAny<string>(), It.IsAny<string>());
+        Action Act = () => createUser.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>());
 
         var exception = Assert.Throws<Exception>(Act);
         Assert.Contains(MessageUser.ErrorSave, exception.Message);

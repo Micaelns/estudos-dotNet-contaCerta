@@ -15,7 +15,7 @@ public class UserApp(ManagerUser managerUser, ListCostsUser listUsers)
     {
         try
         {
-            var data = _managerUser.Create(request.Email, request.Password);
+            var data = _managerUser.Create(request.Email, request.Password, request.Nickname, request.IsPublicEmail);
             return GenereteSingleResponse(data);
         }
         catch (ArgumentException e)
@@ -96,8 +96,9 @@ public class UserApp(ManagerUser managerUser, ListCostsUser listUsers)
         return new ResponseList<UserDTO>()
         {
             Status = StatusCode.Success,
-            Data = users.Select(user => new UserDTO { 
-                Email = user.Email,
+            Data = users.Select(user => new UserDTO {
+                Nickname = user.NickName,
+                Email = user.IsPublicEmail ? user.Email : "********",
                 Active = user.Active
             })
         };
@@ -110,7 +111,8 @@ public class UserApp(ManagerUser managerUser, ListCostsUser listUsers)
             Status = StatusCode.Success,
             Data = new()
             {
-                Email = user.Email,
+                Nickname = user.NickName,
+                Email = user.IsPublicEmail? user.Email : "********",
                 Active = user.Active
             }
         };

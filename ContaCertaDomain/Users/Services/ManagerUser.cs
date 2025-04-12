@@ -42,7 +42,7 @@ public class ManagerUser
         return user;
     }
 
-    public User Create(string email, string password)
+    public User Create(string email, string password, string? nickname, bool isPublicEmail = true)
     {
         if (!_emailValidate.IsValid(email))
         {
@@ -62,8 +62,10 @@ public class ManagerUser
         try {
             var user = new User() { 
                 Email = email,
+                NickName = nickname ?? email.Substring(0, email.IndexOf('@')),
                 Password = password,
-                Active = true
+                Active = true,
+                IsPublicEmail = isPublicEmail
             };
             return _userRepository.Save(user);
         } catch (Exception e)
