@@ -1,5 +1,6 @@
 using ContaCerta.Api.Configs;
 using ContaCerta.Infra;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,17 @@ builder.Services.AddLogging(logging =>
     logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning); // Ignora logs de consulta
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("LocalhostPolicy",
+        policy => policy.WithOrigins("http://localhost:3000")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+}); 
+
 var app = builder.Build();
+
+app.UseCors("LocalhostPolicy");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
