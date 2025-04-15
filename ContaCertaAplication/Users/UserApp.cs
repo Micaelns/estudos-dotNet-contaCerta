@@ -100,7 +100,14 @@ public class UserApp(ManagerUser managerUser, ListCostsUser listUsers)
                 Nickname = user.NickName,
                 Email = user.IsPublicEmail ? user.Email : "********",
                 Active = user.Active
-            })
+            }),
+            Pagination = new()
+            {
+                CurrentPage = 1,
+                PerPage = 100,
+                TotalPages = 1,
+                TotalItems = users.Length,
+            }
         };
     }
 
