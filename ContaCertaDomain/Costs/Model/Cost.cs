@@ -11,6 +11,6 @@ public class Cost: BaseModel
     public DateTime? PaymentDate { get; set; }
     public bool Active { get; set; } = false;
     public User UserRequested { get; set; } = new();
-    //public List<UserCost> UserCosts { get; set; }
+    public List<UserCost> UserCosts { get; set; }
 
 }

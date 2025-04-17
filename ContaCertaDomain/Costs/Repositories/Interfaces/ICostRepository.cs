@@ -5,6 +5,6 @@ namespace ContaCerta.Domain.Costs.Repositories.Interfaces;
 
 public interface ICostRepository : IRepository<Cost>
 {
-    public Cost[] NextCostsCreatedByUserId(int UserId);
-    public Cost[] LastCostsCreatedByUserId(int UserId, int LastDays);
+    public IEnumerable<Cost> LastCostsUserId(int UserId, int LastDays);
+    public IEnumerable<Cost> NextCostsUserId(int UserId);
 }

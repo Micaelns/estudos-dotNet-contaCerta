@@ -22,7 +22,6 @@ public static class ServicesExtensions
         Services.AddTransient<ManagerCost>();
         Services.AddTransient<ManagerUsersInCost>();
         Services.AddTransient<ManagerUser>();
-        Services.AddTransient<ListCostsUser>();
 
         Services.AddTransient<UserApp>();
         Services.AddTransient<CostApp>();

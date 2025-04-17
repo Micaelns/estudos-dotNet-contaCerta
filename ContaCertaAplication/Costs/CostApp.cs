@@ -54,13 +54,13 @@ public class CostApp(ManagerCost managerCost, ManagerUser managerUser, ManagerUs
         }
     }
 
-    public Response GetLastCostsCreatedByUser(string email)
+    public Response GetLastCostsByUser(string email)
     {
         try
         {
             var LoggedUser = _managerUser.FindActiveByEmail(email);
-            var costs = _managerCost.LastCostsCreatedByUser(LoggedUser);
-            return GenereteResponseCost(costs);
+            var costs = _managerCost.LastCostsByUser(LoggedUser);
+            return GenereteResponseCost(costs.ToArray());
         }
         catch (ArgumentException e)
         {
@@ -72,13 +72,13 @@ public class CostApp(ManagerCost managerCost, ManagerUser managerUser, ManagerUs
         }
     }
 
-    public Response GetNextCostsCreatedByUser(string email)
+    public Response GetNextCostsByUser(string email)
     {
         try
         {
             var LoggedUser = _managerUser.FindActiveByEmail(email);
-            var costs = _managerCost.NextCostsCreatedByUser(LoggedUser);
-            return GenereteResponseCost(costs);
+            var costs = _managerCost.NextCostsByUser(LoggedUser);
+            return GenereteResponseCost(costs.ToArray());
         }
         catch (ArgumentException e)
         {
@@ -89,18 +89,28 @@ public class CostApp(ManagerCost managerCost, ManagerUser managerUser, ManagerUs
             return new Response() { Status = StatusCode.InternalError, StatusMessage = e.Message };
         }
     }
-
+    
     private Response GenereteResponseCost(Cost[] costs)
     {
+        if (costs.Length == 0)
+            return new Response() { Status = StatusCode.NoContent };
+
         return new ResponseList<CostDTO>()
         {
-            Status = costs.Length == 0 ? StatusCode.NoContent: StatusCode.Success,
+            Status = StatusCode.Success,
             Data = costs.Select(cost => new CostDTO
             {
                 Id = cost.Id,
                 Title = cost.Title,
                 Active = cost.Active,
                 Value = cost.Value,
+                Summary = cost.UserCosts is null ? null : new SummaryUserCost()
+                {
+                    TotalUsers = cost.UserCosts.Count(),
+                    CountPaid = cost.UserCosts.Sum( uc => uc.Paid ? 1 : 0 ),
+                    TotalPaid = cost.UserCosts.Sum(uc => uc.Paid ? uc.Value : 0)
+                },
+                Owner = cost.UserRequested?.NickName,
                 PaymentDate = cost.PaymentDate
             })
         };
@@ -108,9 +118,12 @@ public class CostApp(ManagerCost managerCost, ManagerUser managerUser, ManagerUs
 
     private Response GenereteSingleResponse(Cost cost)
     {
+        if (cost is null)
+            return new Response() { Status = StatusCode.NoContent };
+
         return new ResponseSingle<CostDTO>()
         {
-            Status = cost is null ? StatusCode.NoContent : StatusCode.Success,
+            Status = StatusCode.Success,
             Data = new()
             {
                 Id = cost.Id,

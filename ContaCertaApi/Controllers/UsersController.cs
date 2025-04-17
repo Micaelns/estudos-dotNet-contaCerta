@@ -30,12 +30,4 @@ public class UsersController : HomeController
         var data = _userApp.Create(request);
         return PrepareResult(data);
     }
-
-    [HttpGet]
-    [Route("last/costs")]
-    public IActionResult GetLastCostsByUser([FromQuery] string email)
-    {
-        var data = _userApp.GetLastCostsByUser(email);
-        return PrepareResult(data);
-    }
 }

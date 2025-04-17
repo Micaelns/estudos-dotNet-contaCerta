@@ -31,18 +31,19 @@ public class CostController : HomeController
     }
 
     [HttpGet]
-    [Route("last/created")]
-    public IActionResult GetLastCostsCreatedByUser([FromQuery] string email)
+    [Route("last")]
+    public IActionResult GetLastCostsByUser([FromQuery] string email)
     {
-        var data = _costApp.GetLastCostsCreatedByUser(email);
+        var data = _costApp.GetLastCostsByUser(email);
         return PrepareResult(data);
     }
 
     [HttpGet]
-    [Route("next/created")]
-    public IActionResult GetNextCostsCreatedByUser([FromQuery] string email)
+    [Route("next")]
+    public IActionResult GetNextCostsByUser([FromQuery] string email)
     {
-        var data = _costApp.GetNextCostsCreatedByUser(email);
+        var data = _costApp.GetNextCostsByUser(email);
         return PrepareResult(data);
     }
+
 }

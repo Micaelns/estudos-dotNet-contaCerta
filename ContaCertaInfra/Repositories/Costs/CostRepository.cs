@@ -1,6 +1,9 @@
 ﻿using ContaCerta.Domain.Costs.Model;
 using ContaCerta.Domain.Costs.Repositories.Interfaces;
+using ContaCerta.Domain.Users.Model;
 using ContaCerta.Infra.Context;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace ContaCerta.Infra.Repositories.Costs;
 
@@ -23,14 +26,34 @@ public class CostRepository : ICostRepository
         return _context.Costs.Where(c => c.Id == Id).FirstOrDefault();
     }
 
-    public Cost[] LastCostsCreatedByUserId(int UserId, int LastDays)
+    public IEnumerable<Cost> LastCostsUserId(int userId, int lastDays)
     {
-        return _context.Costs.Where(c => c.UserRequested.Id == UserId && c.PaymentDate >= DateTime.Now.AddDays(-LastDays) && c.PaymentDate <= DateTime.Now).ToArray();
+        var dataInicial = DateTime.Now.AddDays(-lastDays);
+        var dataFinal = DateTime.Now;
+        
+        return _context.Costs
+            .Where(c =>
+                (c.UserRequested.Id == userId || c.UserCosts.Any(u => u.User.Id == userId)) &&
+                c.PaymentDate >= dataInicial &&
+                c.PaymentDate <= dataFinal
+            )
+            .Include(c => c.UserCosts)
+            .Include(c => c.UserRequested)
+            .ToList();
     }
 
-    public Cost[] NextCostsCreatedByUserId(int UserId)
+    public IEnumerable<Cost> NextCostsUserId(int userId)
     {
-        return _context.Costs.Where(c => c.UserRequested.Id == UserId && (c.PaymentDate == null || c.PaymentDate >= DateTime.Now)).ToArray();
+        var dataInicial = DateTime.Now;
+
+        return _context.Costs
+            .Where(c =>
+                (c.UserRequested.Id == userId || c.UserCosts.Any(u => u.User.Id == userId)) &&
+                c.PaymentDate >= dataInicial
+            )
+            .Include(c => c.UserCosts)
+            .Include(c => c.UserRequested)
+            .ToList();
     }
 
     public Cost Save(Cost entity)

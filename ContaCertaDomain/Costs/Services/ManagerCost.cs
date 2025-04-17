@@ -64,30 +64,30 @@ public class ManagerCost
         }
     }
 
-    public Cost[] LastCostsCreatedByUser(User user, int lastDays = 15)
+    public IEnumerable<Cost> LastCostsByUser(User user, int lastDays = 15)
     {
         if (lastDays < 0)
         {
             throw new ArgumentException(MessageCost.InvalidNumberOfDays);
         }
 
-        if (user.Active == false)
+        if (user.Active is false)
         {
             throw new ArgumentException(MessageUser.InvalidUser);
         }
 
         try
         {
-            return _costRepository.LastCostsCreatedByUserId(user.Id, lastDays);
+           return _costRepository.LastCostsUserId(user.Id, lastDays);
         }
         catch (Exception e)
         {
-            var preparedMessage = MessageCost.ErrorLastDaysQueryByUser.Replace("{0}", lastDays.ToString()).Replace("{1}", user.Email);
-            throw new Exception(preparedMessage+" \n - " + e.Message);
+            var preparedMessage = MessageCost.ErrorLastDaysQuery.Replace("{0}", lastDays.ToString());
+            throw new Exception(preparedMessage + " \n - " + e.Message);
         }
     }
 
-    public Cost[] NextCostsCreatedByUser(User user)
+    public IEnumerable<Cost> NextCostsByUser(User user)
     {
         if (user.Active is false)
         {
@@ -96,12 +96,12 @@ public class ManagerCost
 
         try
         {
-            return _costRepository.NextCostsCreatedByUserId(user.Id);
+            return _costRepository.NextCostsUserId(user.Id);
         }
         catch (Exception e)
         {
-            var preparedMessage = MessageCost.ErrorNextDaysQueryByUser.Replace("{0}", user.Email);
-            throw new Exception(preparedMessage + " \n - " + e.Message);
+            throw new Exception(MessageCost.ErrorNextDaysQuery + " \n - " + e.Message);
         }
     }
+
 }

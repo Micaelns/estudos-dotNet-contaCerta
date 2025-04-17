@@ -6,10 +6,9 @@ using ContaCerta.Domain.Users.Services;
 
 namespace ContaCerta.Aplication.Users;
 
-public class UserApp(ManagerUser managerUser, ListCostsUser listUsers)
+public class UserApp(ManagerUser managerUser)
 {
     private readonly ManagerUser _managerUser = managerUser;
-    private readonly ListCostsUser _listUsers = listUsers;
 
     public Response Create(UserCreateRequest request)
     {
@@ -33,7 +32,7 @@ public class UserApp(ManagerUser managerUser, ListCostsUser listUsers)
         try
         {
             var data = _managerUser.ListActives();
-            return GenereteResponseUser(data);
+            return GenereteResponseUser(data.ToArray());
         }
         catch (ArgumentException e)
         {
@@ -43,56 +42,13 @@ public class UserApp(ManagerUser managerUser, ListCostsUser listUsers)
         {
             return new Response() { Status = StatusCode.InternalError, StatusMessage = e.Message };
         }
-    }
-
-    public Response GetLastCostsByUser(string email)
-    {
-        try
-        {
-            var LoggedUser = _managerUser.FindActiveByEmail(email);
-            var costs = _listUsers.ListCostsLastDays(LoggedUser);
-            if (costs.Length == 0)
-                return new Response() { Status = StatusCode.NoContent };
-
-            return GenereteResponseUserCost(costs);
-        }
-        catch (ArgumentException e)
-        {
-            return new Response() { Status = StatusCode.BadRequest, StatusMessage = e.Message };
-        }
-        catch (Exception e)
-        {
-            return new Response() { Status = StatusCode.InternalError, StatusMessage = e.Message };
-        }
-    }
-
-    private Response GenereteResponseUserCost(UserCost[] userCosts)
-    {
-        return new ResponseList<UserCostDTO>()
-        {
-            Status = userCosts.Length == 0 ? StatusCode.NoContent : StatusCode.Success,
-            Data = userCosts.Select(userCost => new UserCostDTO
-            {
-                User = new() { 
-                    Email = userCost.User.Email,
-                    Active = userCost.User.Active
-                },
-                Cost = new() {
-                    Id = userCost.Cost.Id,
-                    Title = userCost.Cost.Title,
-                    Value = userCost.Cost.Value,
-                    PaymentDate = userCost.Cost.PaymentDate,
-                    Active = userCost.Cost.Active
-                },
-                Paid_at = userCost.Paid_at,
-                Paid = userCost.Paid,
-                Value = userCost.Value
-            })
-        };
     }
 
     private Response GenereteResponseUser(User[] users)
     {
+        if (users.Length == 0)
+            return new Response() { Status = StatusCode.NoContent };
+
         return new ResponseList<UserDTO>()
         {
             Status = StatusCode.Success,

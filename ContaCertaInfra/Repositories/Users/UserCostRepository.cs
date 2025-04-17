@@ -30,21 +30,7 @@ public class UserCostRepository : IUserCostRepository
         throw new NotImplementedException();
     }
 
-    public UserCost[] LastUserCostsByUser(User user, int lastDays)
-    {
-        return _context.UserCosts.Where(c => c.User.Id == user.Id && c.Cost.CreatedAt >= DateTime.Now.AddDays(-lastDays))
-            .Include(uc => uc.Cost)
-            .ToArray();
-    }
-
     public UserCost[] ListUserCostsByCost(Cost cost)
-    {
-        return _context.UserCosts.Where(c => c.Cost.Id == cost.Id)
-            .Include(uc => uc.User)
-            .ToArray();
-    }
-
-    public UserCost[] NextUserCostByUser(User user)
     {
         throw new NotImplementedException();
     }

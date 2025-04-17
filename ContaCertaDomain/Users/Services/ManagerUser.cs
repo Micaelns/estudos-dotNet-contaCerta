@@ -74,7 +74,7 @@ public class ManagerUser
         }
     }
 
-    public User[] ListActives()
+    public IEnumerable<User> ListActives()
     {
         return _userRepository.ListActives();
     }

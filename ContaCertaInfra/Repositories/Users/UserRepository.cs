@@ -1,4 +1,5 @@
-﻿using ContaCerta.Domain.Users.Model;
+﻿using ContaCerta.Domain.Costs.Model;
+using ContaCerta.Domain.Users.Model;
 using ContaCerta.Domain.Users.Repositories.Interfaces;
 using ContaCerta.Infra.Context;
 
@@ -28,9 +29,9 @@ public class UserRepository : IUserRepository
         return _context.Users.Where(c => c.Email.Contains(email)).FirstOrDefault();
     }
 
-    public User[] ListActives()
+    public IEnumerable<User> ListActives()
     {
-        return _context.Users.Where(c => c.Active).ToArray();
+        return _context.Users.Where(c => c.Active).ToList();
     }
 
     public User Save(User entity)

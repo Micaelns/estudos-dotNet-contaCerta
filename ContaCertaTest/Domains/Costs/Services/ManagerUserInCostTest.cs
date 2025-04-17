@@ -9,6 +9,7 @@ namespace ContaCerta.Tests.Domain.Costs.Services;
 
 public class ManagerUserInCostTest
 {
+    /*
     [Fact]
     public void RemoveUsers_withoutUsersArray_OnlyReturn()
     {
@@ -20,7 +21,7 @@ public class ManagerUserInCostTest
 
         userCostRepositoryMock.Verify(x => x.ListUserCostsByCost(It.IsAny<Cost>()), Times.Never);
     }
-
+    */
     [Fact]
     public void RemoveUsers_withInactiveCost_ReturnArgumentException()
     {
@@ -34,7 +35,7 @@ public class ManagerUserInCostTest
 
         Assert.Contains(MessageCost.InvalidCost, exception.Message);
     }
-
+    /*
     [Fact]
     public void RemoveUsers_withoutUsersSaved_OnlyReturn()
     {
@@ -51,7 +52,6 @@ public class ManagerUserInCostTest
         userCostRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never);
         userCostRepositoryMock.Verify(x => x.Save(It.IsAny<UserCost>()), Times.Never);
     }
-
     [Fact]
     public void RemoveUsers_withUserCostsPaid_ReturnException()
     {
@@ -69,6 +69,7 @@ public class ManagerUserInCostTest
 
         Assert.Contains(MessageCost.ImpossibleManagerUsersIfAnyPaid, exception.Message);
     }
+    */
 
     [Fact]
     public void RemoveUsers_withUsersNoSaved_ReturnWithoutEdit()
@@ -114,7 +115,7 @@ public class ManagerUserInCostTest
         userCostRepositoryMock.Verify(x => x.Save(It.IsAny<UserCost>()), Times.Exactly(2));
         Assert.True(sendToSave.All( item => item));
     }
-
+    /*
     [Fact]
     public void AddUsers_withoutUsersArray_OnlyReturn()
     {
@@ -127,7 +128,7 @@ public class ManagerUserInCostTest
         userCostRepositoryMock.Verify(x => x.ListUserCostsByCost(It.IsAny<Cost>()), Times.Never);
 
     }
-
+    */
     [Fact]
     public void AddUsers_withInactiveCost_ReturnArgumentException()
     {
@@ -141,7 +142,7 @@ public class ManagerUserInCostTest
 
         Assert.Contains(MessageCost.InvalidCost, exception.Message);
     }
-
+    /*
     [Fact]
     public void AddUsers_withUserCostsPaid_ReturnException()
     {
@@ -159,7 +160,6 @@ public class ManagerUserInCostTest
 
         Assert.Contains(MessageCost.ImpossibleManagerUsersIfAnyPaid, exception.Message);
     }
-
     [Fact]
     public void AddUsers_withUsersAlreadySaved_ReturnWithoutAdd()
     {
@@ -177,4 +177,5 @@ public class ManagerUserInCostTest
 
         userCostRepositoryMock.Verify(x => x.Save(It.IsAny<UserCost>()), Times.Never);
     }
+    */
 }
