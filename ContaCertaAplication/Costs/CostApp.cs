@@ -102,6 +102,7 @@ public class CostApp(ManagerCost managerCost, ManagerUser managerUser, ManagerUs
             {
                 Id = cost.Id,
                 Title = cost.Title,
+                Description = cost.Description,
                 Active = cost.Active,
                 Value = cost.Value,
                 Summary = cost.UserCosts is null ? null : new SummaryUserCost()
@@ -128,6 +129,7 @@ public class CostApp(ManagerCost managerCost, ManagerUser managerUser, ManagerUs
             {
                 Id = cost.Id,
                 Title = cost.Title,
+                Description = cost.Description,
                 Active = cost.Active,
                 Value = cost.Value,
                 PaymentDate = cost.PaymentDate
